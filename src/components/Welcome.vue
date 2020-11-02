@@ -7,7 +7,7 @@
     <EasydexLogo />
     <div>
       <p>Browse</p>
-      <NavigationArrow class="bounce" />
+      <NavigationArrow class="nav-arrow" />
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default Vue.extend({
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 90vh;
+  height: 100vh;
 
   h1 {
     font: 700% $title-font;
@@ -48,7 +48,7 @@ export default Vue.extend({
   p {
     font-size: 140%;
   }
-  .bounce {
+  .nav-arrow {
     animation: bounce 1s infinite alternate;
     @keyframes bounce {
       from {
@@ -57,6 +57,28 @@ export default Vue.extend({
       to {
         transform: translateY(-12px);
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .flex-container {
+    h1 {
+      font: 600% $title-font;
+    }
+    h2 {
+      font: 125% $sub-title-font;
+    }
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .flex-container {
+    h1 {
+      font: 540% $title-font;
+    }
+    h2 {
+      font: 110% $sub-title-font;
     }
   }
 }

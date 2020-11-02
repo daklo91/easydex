@@ -84,3 +84,11 @@
     </svg>
   </div>
 </template>
+
+<style lang="scss" scoped>
+@media only screen and (max-width: 300px) {
+  svg {
+    width: 80%;
+  }
+}
+</style>

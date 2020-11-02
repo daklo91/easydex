@@ -23,6 +23,7 @@ body {
   );
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 #app {
@@ -56,6 +57,12 @@ body {
     &:hover {
       color: $pokemon-yellow-color;
     }
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  #nav {
+    display: none;
   }
 }
 </style>
