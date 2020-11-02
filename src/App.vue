@@ -1,7 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <div class="spacer"></div>
+      <router-link to="/">Home</router-link>
+      <router-link to="/browse">Browse</router-link>
+      <router-link to="/search">Search</router-link>
+      <router-link to="/filter">Filter</router-link>
       <router-link to="/about">About</router-link>
     </div>
     <router-view />
@@ -25,7 +29,7 @@ body {
   font-family: $main-font;
   color: $main-color;
   text-align: center;
-  width: 800px;
+  max-width: 800px;
   margin: auto;
   background: white;
   height: 100vh;
@@ -33,10 +37,23 @@ body {
 }
 
 #nav {
+  .spacer {
+    height: 35px;
+  }
   a {
+    padding: 10px;
+    border-radius: 8px;
+    margin: 0px 1px 0px;
+    text-decoration: none;
     color: $main-color;
+    transition: 0.3s;
 
     &.router-link-exact-active {
+      color: $pokemon-yellow-color;
+      background-color: $pokemon-blue-color;
+    }
+
+    &:hover {
       color: $pokemon-yellow-color;
     }
   }
