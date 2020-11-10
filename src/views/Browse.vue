@@ -1,11 +1,11 @@
 <template>
   <div>
-    <button @click="$store.dispatch('initialFetch')">
+    <button @click="$store.dispatch('fetchPokemonObject')">
       Fetch
     </button>
     <!-- <p>{{ initialFetch.length }}</p> -->
-    <div v-if="initialFetch">
-      <div v-for="pokemon in initialFetch" :key="pokemon.id">
+    <div v-if="pokemons">
+      <div v-for="pokemon in pokemons" :key="pokemon.id">
         <p>{{ pokemon.id + '# ' + pokemon.name }}</p>
       </div>
     </div>
@@ -15,8 +15,8 @@
 <script>
 export default {
   computed: {
-    initialFetch() {
-      return this.$store.state.initialFetch
+    pokemons() {
+      return this.$store.getters.getSortedPokemonArray
     }
   }
 }

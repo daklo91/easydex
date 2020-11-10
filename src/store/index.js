@@ -4,36 +4,40 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
-    initialFetch: [],
-    arrayCounter: 1
+    pokemonArray: [],
+    pokemonArrayCounter: 1 //This is a hack used in the for loop in fetchPokemonObject to fetch 15 pokemon at a time.
   },
   mutations: {
-    saveInitialFetch(state, payload) {
-      state.initialFetch.push(payload)
+    ADD_POKEMON(state, payload) {
+      state.pokemonArray.push(payload)
     },
-    updateArrayCounter(state) {
-      state.arrayCounter += 15
+    ADD_COUNT(state) {
+      state.pokemonArrayCounter += 15
     }
   },
   actions: {
-    initialFetch({ state, commit }) {
-      for (let i = state.arrayCounter; i < state.arrayCounter + 15; i++) {
+    fetchPokemonObject({ state, commit }) {
+      for (
+        let i = state.pokemonArrayCounter;
+        i < state.pokemonArrayCounter + 15;
+        i++
+      ) {
         const url = 'https://pokeapi.co/api/v2/pokemon/' + i
         fetch(url)
           .then(resp => resp.json())
           .then(function(data) {
-            commit('saveInitialFetch', data)
+            commit('ADD_POKEMON', data)
           })
           .catch(function(error) {
-            console.log('There was an error:' + error)
+            console.log('Error at fetchPokemonObject action: ' + error)
           })
       }
-      commit('updateArrayCounter')
+      commit('ADD_COUNT')
     }
   },
   getters: {
-    sortInitialFetch: state => {
-      return state.initialFetch.sort((a, b) => (a.id > b.id ? 1 : -1))
+    getSortedPokemonArray: state => {
+      return state.pokemonArray.sort((a, b) => (a.id > b.id ? 1 : -1))
     }
   },
   modules: {}
