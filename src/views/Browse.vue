@@ -12,16 +12,14 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-
-export default Vue.extend({
+<script>
+export default {
   computed: {
     initialFetch() {
       return this.$store.state.initialFetch
     }
   }
-})
+}
 </script>
 
 <style lang="scss" scoped></style>

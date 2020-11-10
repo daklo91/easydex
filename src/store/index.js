@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
-    initialFetch: [] as object[],
+    initialFetch: [],
     arrayCounter: 1
   },
   mutations: {

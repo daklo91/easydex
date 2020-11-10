@@ -6,16 +6,14 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-
-export default Vue.extend({
+<script>
+export default {
   methods: {
     openMenu() {
-      this.$emit("openMenu");
+      this.$emit('openMenu')
     }
   }
-});
+}
 </script>
 
 <style lang="scss" scoped>

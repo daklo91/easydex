@@ -13,18 +13,17 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import EasydexLogo from "@/assets/EasydexLogo.vue";
-import NavigationArrow from "@/assets/NavigationArrow.vue";
+<script>
+import EasydexLogo from '@/assets/EasydexLogo.vue'
+import NavigationArrow from '@/assets/NavigationArrow.vue'
 
-export default Vue.extend({
-  name: "Welcome",
+export default {
+  name: 'Welcome',
   components: {
     EasydexLogo,
     NavigationArrow
   }
-});
+}
 </script>
 
 <style scoped lang="scss">

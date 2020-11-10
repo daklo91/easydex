@@ -8,12 +8,11 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script>
 import MenuButton from '@/components/MenuButton.vue'
 import RouterLinks from '@/components/RouterLinks.vue'
 
-export default Vue.extend({
+export default {
   components: {
     MenuButton,
     RouterLinks
@@ -28,7 +27,7 @@ export default Vue.extend({
       this.menuIsOpen = !this.menuIsOpen
     }
   }
-})
+}
 </script>
 
 <style lang="scss" scoped>
