@@ -9,9 +9,9 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import MenuButton from "@/components/MenuButton.vue";
-import RouterLinks from "@/components/RouterLinks.vue";
+import Vue from 'vue'
+import MenuButton from '@/components/MenuButton.vue'
+import RouterLinks from '@/components/RouterLinks.vue'
 
 export default Vue.extend({
   components: {
@@ -21,14 +21,14 @@ export default Vue.extend({
   data() {
     return {
       menuIsOpen: false
-    };
+    }
   },
   methods: {
     openMenu() {
-      this.menuIsOpen = !this.menuIsOpen;
+      this.menuIsOpen = !this.menuIsOpen
     }
   }
-});
+})
 </script>
 
 <style lang="scss" scoped>

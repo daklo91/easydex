@@ -12,16 +12,16 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Menu from "@/components/Menu.vue";
-import RouterLinks from "@/components/RouterLinks.vue";
+import Vue from 'vue'
+import Menu from '@/components/Menu.vue'
+import RouterLinks from '@/components/RouterLinks.vue'
 
 export default Vue.extend({
   components: {
     Menu,
     RouterLinks
   }
-});
+})
 </script>
 
 <style lang="scss">
@@ -47,6 +47,7 @@ body {
   background: white;
   height: 100vh;
   box-shadow: 0px 0px 16px 0px rgba(100, 100, 100, 0.5);
+  overflow: auto;
 
   .spacer {
     height: 35px;

@@ -6,6 +6,7 @@
     </div>
     <EasydexLogo />
     <div>
+      <!-- It doesn't quite feel right with this button anymore. We need something else to fill this space. We could also make it appear on small screens which indicates that swiping is a way to navigate -->
       <p>Browse</p>
       <NavigationArrow class="nav-arrow" />
     </div>
