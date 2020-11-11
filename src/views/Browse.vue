@@ -4,20 +4,24 @@
       Fetch
     </button>
     <p>{{ pokemons.length }}</p>
+    <p>{{ pokemonArrayLoopInt }}</p>
     <div v-if="pokemons">
       <div v-for="pokemon in pokemons" :key="pokemon.id">
-        <p>{{ pokemon.id + '# ' + pokemon.name }}</p>
-        <img
-          id="main-image"
-          :src="
-            'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/' +
-              getPokemonId(pokemon.id) +
-              '.png'
-          "
-          :alt="'Image of ' + pokemon.name"
-          :title="'Image of ' + pokemon.name"
-          @error="getSprite(pokemon.id)"
-        />
+        <div id="temp-frame">
+          <p>{{ pokemon.id + '# ' }}</p>
+          <img
+            id="main-image"
+            :src="
+              'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/' +
+                getPokemonId(pokemon.id) +
+                '.png'
+            "
+            :alt="'Image of ' + pokemon.name"
+            :title="'Image of ' + pokemon.name"
+            @error="getSprite(pokemon.id)"
+          />
+          <p>{{ pokemon.name }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -28,6 +32,9 @@ export default {
   computed: {
     pokemons() {
       return this.$store.getters.getSortedPokemonArray
+    },
+    pokemonArrayLoopInt() {
+      return this.$store.state.pokemonArrayLoopInt
     }
   },
   methods: {
@@ -46,4 +53,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#temp-frame {
+  border: solid $main-color 3px;
+  border-radius: 8px;
+  width: 250px;
+}
+</style>
