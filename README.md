@@ -1,7 +1,6 @@
 # easydex
 
 api from pokeApi: https://pokeapi.co/
-img from official pokemon site: https://www.pokemon.com/us/pokedex/
 
 ## Project setup
 
