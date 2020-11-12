@@ -1,9 +1,5 @@
 <template>
   <div>
-    <button @click="$store.dispatch('fetchPokemonObject')">
-      Fetch
-    </button>
-    <p>{{ pokemons.length }}</p>
     <div v-if="pokemons" id="flex-container">
       <div v-for="pokemon in pokemons" :key="pokemon.id">
         <div id="card">
@@ -26,6 +22,17 @@ export default {
     pokemons() {
       return this.$store.getters.getSortedPokemonArray
     }
+  },
+  mounted() {
+    window.onscroll = () => {
+      let bottomOfWindow =
+        document.documentElement.scrollTop + window.innerHeight ===
+        document.documentElement.offsetHeight
+
+      if (bottomOfWindow) {
+        this.$store.dispatch('fetchPokemonObject')
+      }
+    }
   }
 }
 </script>
@@ -35,7 +42,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-top: 60px;
+  padding-top: 120px;
 
   #card {
     border: solid $main-color 3px;
