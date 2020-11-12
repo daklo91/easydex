@@ -4,24 +4,22 @@
       <Menu />
     </div>
     <div id="nav-bar">
-      <div class="spacer"></div>
       <RouterLinks />
     </div>
     <router-view />
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script>
 import Menu from '@/components/Menu.vue'
 import RouterLinks from '@/components/RouterLinks.vue'
 
-export default Vue.extend({
+export default {
   components: {
     Menu,
     RouterLinks
   }
-})
+}
 </script>
 
 <style lang="scss">
@@ -35,7 +33,7 @@ body {
   );
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow: auto;
 }
 
 #app {
@@ -43,18 +41,20 @@ body {
   color: $main-color;
   text-align: center;
   max-width: 800px;
+  min-height: 100vh;
   margin: auto;
   background: white;
-  height: 100vh;
   box-shadow: 0px 0px 16px 0px rgba(100, 100, 100, 0.5);
-  overflow: auto;
-
-  .spacer {
-    height: 35px;
-  }
 
   #nav-menu {
     display: none;
+  }
+  #nav-bar {
+    position: absolute;
+    margin-top: 60px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    //Hack to make absolute position stay centered
   }
 }
 

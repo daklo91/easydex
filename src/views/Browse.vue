@@ -35,6 +35,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding-top: 60px;
 
   #card {
     border: solid $main-color 3px;
@@ -42,11 +43,11 @@ export default {
     width: 200px;
     margin: 10px;
     text-transform: capitalize;
-    background: radial-gradient(
-      circle,
-      rgb(206, 206, 206) 0%,
-      rgba(255, 255, 255, 1) 100%
-    );
+    // background: radial-gradient(
+    //   circle,
+    //   rgb(206, 206, 206) 0%,
+    //   rgba(255, 255, 255, 1) 100%
+    // );
 
     #id-number {
       text-align: left;
