@@ -18,6 +18,17 @@ export default {
   components: {
     Menu,
     RouterLinks
+  },
+  created() {
+    this.$store.dispatch('fetchPokemonObject')
+  },
+  watch: {
+    $route: {
+      handler: to => {
+        document.title = to.meta.title || 'Your Website'
+      },
+      immediate: true
+    }
   }
 }
 </script>

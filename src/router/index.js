@@ -12,27 +12,42 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      title: 'Easydex'
+    }
   },
   {
     path: '/about',
     name: 'About',
-    component: About
+    component: About,
+    meta: {
+      title: 'About'
+    }
   },
   {
     path: '/browse',
     name: 'Browse',
-    component: Browse
+    component: Browse,
+    meta: {
+      title: 'Browse'
+    }
   },
   {
     path: '/search',
     name: 'Search',
-    component: Search
+    component: Search,
+    meta: {
+      title: 'Search'
+    }
   },
   {
     path: '/filter',
     name: 'Filter',
-    component: Filter
+    component: Filter,
+    meta: {
+      title: 'Filter'
+    }
   }
 ]
 
