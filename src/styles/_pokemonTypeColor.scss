@@ -1,0 +1,39 @@
+$normal-color: #a9a878;
+$fire-color: #f07f2f;
+$water-color: #6890f0;
+$grass-color: #78c84f;
+$electric-color: #f8d030;
+$poison-color: #a54aa6;
+$ice-color: #98d8d8;
+$fighting-color: #c03028;
+$ground-color: #e0c069;
+$flying-color: #a890f0;
+$rock-color: #b7a038;
+$dark-color: #6f5848;
+$psychic-color: #f85888;
+$ghost-color: #705798;
+$steel-color: #b8b8d0;
+$bug-color: #a8b821;
+$dragon-color: #7038f9;
+$fairy-color: #ffa3b1;
+
+:export {
+  normalColor: $normal-color;
+  fireColor: $fire-color;
+  waterColor: $water-color;
+  grassColor: $grass-color;
+  electricColor: $electric-color;
+  poisonColor: $poison-color;
+  iceColor: $ice-color;
+  groundColor: $ground-color;
+  fightingColor: $fighting-color;
+  flyingColor: $flying-color;
+  rockColor: $rock-color;
+  darkColor: $dark-color;
+  psychicColor: $psychic-color;
+  ghostColor: $ghost-color;
+  steelColor: $steel-color;
+  bugColor: $bug-color;
+  dragonColor: $dragon-color;
+  fairyColor: $fairy-color;
+}

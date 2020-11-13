@@ -1,16 +1,7 @@
 <template>
   <div>
     <div v-for="pokemon in pokemonArray" :key="pokemon.id">
-      <div
-        id="card"
-        :style="{
-          background:
-            'radial-gradient(circle,' +
-            colorByTypeRecieved(pokemon.types[0]) +
-            ' 0%,rgba(255, 255, 255, 1) 100%)',
-          borderColor: colorByTypeRecieved(pokemon.types[1])
-        }"
-      >
+      <div id="card" :style="{ backgroundColor: checkType(pokemon.types[0]) }">
         <p id="id-number"><span id="id-hashtag">#</span>{{ pokemon.id }}</p>
         <img
           :src="pokemon.sprites.front_default"
@@ -24,6 +15,8 @@
 </template>
 
 <script>
+import typeColor from '@/scripts/typeColors.js'
+
 export default {
   props: {
     pokemonArray: {
@@ -34,21 +27,8 @@ export default {
     }
   },
   methods: {
-    colorByTypeRecieved(type) {
-      if (type == undefined) {
-        return undefined
-      }
-      var typeColor = ''
-      if (type.type.name == 'grass') {
-        typeColor = 'green'
-      } else if (type.type.name == 'fire') {
-        typeColor = 'orange'
-      } else if (type.type.name == 'water') {
-        typeColor = 'lightseagreen'
-      } else if (type.type.name == 'poison') {
-        typeColor = 'purple'
-      }
-      return typeColor
+    checkType(type) {
+      return typeColor(type)
     }
   }
 }
