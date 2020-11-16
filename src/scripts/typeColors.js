@@ -1,60 +1,60 @@
-import pokemonTypeColor from '@/styles/_pokemonTypeColor.scss'
+import scssColor from '@/styles/_typeColor.scss'
 
 function typeColor(type) {
   switch (type.type.name) {
     case 'normal':
-      type = pokemonTypeColor.normalColor
+      type = scssColor.normalColor
       break
     case 'fire':
-      type = pokemonTypeColor.fireColor
+      type = scssColor.fireColor
       break
     case 'water':
-      type = pokemonTypeColor.waterColor
+      type = scssColor.waterColor
       break
     case 'grass':
-      type = pokemonTypeColor.grassColor
+      type = scssColor.grassColor
       break
     case 'electric':
-      type = pokemonTypeColor.electricColor
+      type = scssColor.electricColor
       break
     case 'poison':
-      type = pokemonTypeColor.poisonColor
+      type = scssColor.poisonColor
       break
     case 'ice':
-      type = pokemonTypeColor.iceColor
+      type = scssColor.iceColor
       break
     case 'fighting':
-      type = pokemonTypeColor.fightingColor
+      type = scssColor.fightingColor
       break
     case 'ground':
-      type = pokemonTypeColor.groundColor
+      type = scssColor.groundColor
       break
     case 'flying':
-      type = pokemonTypeColor.flyingColor
+      type = scssColor.flyingColor
       break
     case 'rock':
-      type = pokemonTypeColor.rockColor
+      type = scssColor.rockColor
       break
     case 'dark':
-      type = pokemonTypeColor.darkColor
+      type = scssColor.darkColor
       break
     case 'psychic':
-      type = pokemonTypeColor.psychicColor
+      type = scssColor.psychicColor
       break
     case 'ghost':
-      type = pokemonTypeColor.ghostColor
+      type = scssColor.ghostColor
       break
     case 'steel':
-      type = pokemonTypeColor.steelColor
+      type = scssColor.steelColor
       break
     case 'bug':
-      type = pokemonTypeColor.bugColor
+      type = scssColor.bugColor
       break
     case 'dragon':
-      type = pokemonTypeColor.dragonColor
+      type = scssColor.dragonColor
       break
     case 'fairy':
-      type = pokemonTypeColor.fairyColor
+      type = scssColor.fairyColor
       break
   }
   return type

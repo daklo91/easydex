@@ -1,7 +1,10 @@
 <template>
   <div>
     <div v-for="pokemon in pokemonArray" :key="pokemon.id">
-      <div id="card" :style="{ backgroundColor: checkType(pokemon.types[0]) }">
+      <div
+        id="card"
+        :style="{ backgroundColor: setTypeColor(pokemon.types[0]) }"
+      >
         <p id="id-number"><span id="id-hashtag">#</span>{{ pokemon.id }}</p>
         <img
           :src="pokemon.sprites.front_default"
@@ -27,7 +30,7 @@ export default {
     }
   },
   methods: {
-    checkType(type) {
+    setTypeColor(type) {
       return typeColor(type)
     }
   }
