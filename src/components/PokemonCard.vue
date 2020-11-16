@@ -4,7 +4,7 @@
       <div
         id="card"
         :style="{
-          backgroundColor: setTypeColor(pokemon.types[0]),
+          backgroundColor: setTypeColor(pokemon.types[0]) + 95,
           borderColor: setTypeColor(
             pokemon.types[1] ? pokemon.types[1] : pokemon.types[0]
           )
@@ -44,11 +44,22 @@ export default {
 
 <style lang="scss" scoped>
 #card {
-  border: solid $main-color 3px;
+  border: solid $main-color 2px;
   border-radius: 8px;
   width: 200px;
+  height: 220px;
   margin: 10px;
+  padding: 5px;
   text-transform: capitalize;
+  box-sizing: border-box;
+  transition: all 0.06s;
+
+  &:hover {
+    cursor: pointer;
+    border: solid $main-color 5px;
+    padding: 2px;
+    color: darken($main-color, 10);
+  }
 
   #id-number {
     text-align: left;
