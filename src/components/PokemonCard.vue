@@ -3,7 +3,12 @@
     <div v-for="pokemon in pokemonArray" :key="pokemon.id">
       <div
         id="card"
-        :style="{ backgroundColor: setTypeColor(pokemon.types[0]) }"
+        :style="{
+          backgroundColor: setTypeColor(pokemon.types[0]),
+          borderColor: setTypeColor(
+            pokemon.types[1] ? pokemon.types[1] : pokemon.types[0]
+          )
+        }"
       >
         <p id="id-number"><span id="id-hashtag">#</span>{{ pokemon.id }}</p>
         <img
@@ -11,7 +16,7 @@
           :alt="'Image of ' + pokemon.name"
           :title="'Image of ' + pokemon.name"
         />
-        <p>{{ pokemon.name }}</p>
+        <p>{{ pokemon.species.name }}</p>
       </div>
     </div>
   </div>
