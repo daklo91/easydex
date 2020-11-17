@@ -12,6 +12,7 @@
       >
         <p id="id-number"><span id="id-hashtag">#</span>{{ pokemon.id }}</p>
         <img
+          id="image"
           :src="pokemon.sprites.front_default"
           :alt="'Image of ' + pokemon.name"
           :title="'Image of ' + pokemon.name"
@@ -25,6 +26,7 @@
 <script>
 import typeColor from '@/scripts/typeColors.js'
 
+//pokemon.sprites.other['official-artwork'].front_default <--- Use this in the image src for the official artwork. There is one for svg's too.
 export default {
   props: {
     pokemonArray: {
@@ -59,6 +61,10 @@ export default {
     border: solid $main-color 5px;
     padding: 2px;
     color: darken($main-color, 10);
+  }
+
+  #image {
+    max-width: 110px;
   }
 
   #id-number {
