@@ -1,9 +1,6 @@
 <template>
   <div class="home">
     <Welcome :wheelCount="wheelCount" />
-    <icon-base width="12" height="12" icon-name="write"
-      ><icon-write /><bug
-    /></icon-base>
   </div>
 </template>
 
