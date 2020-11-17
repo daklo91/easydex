@@ -9,6 +9,7 @@
       <!-- It doesn't quite feel right with this button anymore. We need something else to fill this space. We could also make it appear on small screens which indicates that swiping is a way to navigate -->
       <p>Browse</p>
       <NavigationArrow class="nav-arrow" />
+      <p v-if="wheelCount > 0">{{ wheelCount }}</p>
     </div>
   </div>
 </template>
@@ -22,6 +23,12 @@ export default {
   components: {
     EasydexLogo,
     NavigationArrow
+  },
+  props: {
+    wheelCount: {
+      type: Number,
+      default: 0
+    }
   }
 }
 </script>
