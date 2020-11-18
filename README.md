@@ -1,6 +1,7 @@
 # easydex
 
 api from pokeApi: https://pokeapi.co/
+SVG type icons from duiker101: https://github.com/duiker101/pokemon-type-svg-icons
 
 ## Project setup
 
