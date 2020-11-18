@@ -10,7 +10,18 @@
           )
         }"
       >
-        <p id="id-number"><span id="id-hashtag">#</span>{{ pokemon.id }}</p>
+        <div id="header">
+          <p id="id-number"><span id="id-hashtag">#</span>{{ pokemon.id }}</p>
+          <div id="type-icons">
+            <div
+              id="type-icon"
+              v-for="(types, index) in pokemon.types"
+              :key="index"
+            >
+              <TypeIcon :size="15" :type="pokemon.types[index]" />
+            </div>
+          </div>
+        </div>
         <img
           id="image"
           :src="pokemon.sprites.front_default"
@@ -25,9 +36,13 @@
 
 <script>
 import typeColor from '@/scripts/typeColors.js'
+import TypeIcon from '@/components/TypeIcon.vue'
 
 //pokemon.sprites.other['official-artwork'].front_default <--- Use this in the image src for the official artwork. There is one for svg's too.
 export default {
+  components: {
+    TypeIcon
+  },
   props: {
     pokemonArray: {
       type: Array,
@@ -67,12 +82,26 @@ export default {
     max-width: 110px;
   }
 
-  #id-number {
-    text-align: left;
-    margin-left: 10px;
+  #header {
+    display: flex;
+    justify-content: space-between;
 
-    #id-hashtag {
-      font: 150% $sub-title-font;
+    #type-icons {
+      margin-top: 15px;
+      margin-right: 4px;
+      display: flex;
+
+      #type-icon {
+        margin-left: 4px;
+      }
+    }
+
+    #id-number {
+      margin-left: 10px;
+
+      #id-hashtag {
+        font: 150% $sub-title-font;
+      }
     }
   }
 }
