@@ -1,15 +1,10 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-import gen1 from '@/store/modules/gen1.js'
-import gen2 from '@/store/modules/gen2.js'
-import gen3 from '@/store/modules/gen3.js'
-
-Vue.use(Vuex)
-export default new Vuex.Store({
+export default {
+  namespaced: true,
   state: {
     pokemonArray: [],
-    pokemonArrayLoopInt: 1 //This is a hack used in the for loop in fetchPokemonObject to fetch 12 pokemon at a time.
+    pokemonArrayLoopInt: 1,
+    fetchLimit: 151,
+    fetchLimitReached: false
   },
   mutations: {
     ADD_POKEMON(state, payload) {
@@ -26,7 +21,7 @@ export default new Vuex.Store({
         i < state.pokemonArrayLoopInt + 12;
         i++
       ) {
-        if (i <= 893) {
+        if (i <= state.fetchLimit) {
           const url = 'https://pokeapi.co/api/v2/pokemon/' + i
           fetch(url)
             .then(resp => resp.json())
@@ -36,6 +31,8 @@ export default new Vuex.Store({
             .catch(function(error) {
               console.log('Error at fetchPokemonObject action: ' + error)
             })
+        } else if (state.pokemonArray.length <= state.fetchLimit) {
+          state.fetchLimitReached = true
         }
       }
       commit('ADD_COUNT')
@@ -45,6 +42,5 @@ export default new Vuex.Store({
     getSortedPokemonArray: state => {
       return state.pokemonArray.sort((a, b) => (a.id > b.id ? 1 : -1))
     }
-  },
-  modules: { gen1, gen2, gen3 }
-})
+  }
+}

@@ -1,21 +1,71 @@
 <template>
   <div>
-    <div v-if="pokemons">
-      <PokemonCard v-bind:pokemonArray="pokemons" id="flex-container" />
+    <div id="gen-buttons">
+      <button @click="consoleLog(timeout)">log timeout</button>
+      <button @click="setActiveGen('gen1')">Gen 1</button>
+      <button @click="setActiveGen('gen2')">Gen 2</button>
+      <button @click="setActiveGen('gen3')">Gen 3</button>
+      <p>{{ activeGen }}</p>
+    </div>
+    <div id="spacer"></div>
+    <PokemonCard
+      v-bind:pokemonArray="pokemons.slice(0, 12)"
+      id="flex-container"
+    />
+    <PokemonCard
+      v-if="loadMore"
+      v-bind:pokemonArray="
+        pokemons.slice(12, this.$store.state[this.activeGen].fetchLimit)
+      "
+      id="flex-container"
+    />
+    <div
+      id="navigation"
+      v-if="this.$store.state[this.activeGen].fetchLimitReached && loadMore"
+    >
+      <p class="nav-text">Next</p>
+      <NavigationArrow class="nav-arrow" />
     </div>
   </div>
 </template>
 
 <script>
 import PokemonCard from '@/components/PokemonCard.vue'
+import NavigationArrow from '@/assets/NavigationArrow.vue'
 
 export default {
   components: {
-    PokemonCard
+    PokemonCard,
+    NavigationArrow
+  },
+  data() {
+    return {
+      activeGen: 'gen1', //this controls which generation module that gets used
+      loadMore: false //after loadMore becomes true, the next slice of the array will be displayed. This prevents input lag
+    }
   },
   computed: {
     pokemons() {
-      return this.$store.getters.getSortedPokemonArray
+      return this.$store.getters[this.activeGen + '/getSortedPokemonArray']
+    }
+  },
+  methods: {
+    setActiveGen(gen) {
+      this.loadMore = false
+      document.body.scrollTop = 0
+      document.documentElement.scrollTop = 0
+      this.activeGen = gen
+      if (this.pokemons.length < 12) {
+        this.$store.dispatch(this.activeGen + '/fetchPokemonObject')
+      }
+      if (this.pokemons.length) {
+        setTimeout(() => {
+          this.loadMore = true
+        }, 200)
+      }
+    },
+    consoleLog(input) {
+      console.log(input)
     }
   },
   mounted() {
@@ -25,7 +75,11 @@ export default {
         document.documentElement.offsetHeight
 
       if (bottomOfWindow) {
-        this.$store.dispatch('fetchPokemonObject')
+        this.loadMore = true
+        this.$store.dispatch(this.activeGen + '/fetchPokemonObject')
+      }
+      if (this.$store.state[this.activeGen].fetchLimitReached == true) {
+        console.log(this.activeGen + ' limit reached!')
       }
     }
   }
@@ -37,6 +91,35 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+#spacer {
   padding-top: 120px;
+}
+
+#navigation {
+  padding-top: 30px;
+  padding-bottom: 20px;
+
+  .nav-text {
+    padding-bottom: 6px;
+  }
+
+  .nav-arrow {
+    animation: bounce 1s infinite alternate;
+    @keyframes bounce {
+      from {
+        transform: translateY(0px);
+      }
+      to {
+        transform: translateY(-12px);
+      }
+    }
+  }
+}
+
+#gen-buttons {
+  position: fixed;
+  background-color: lightgreen;
 }
 </style>

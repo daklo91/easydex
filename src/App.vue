@@ -20,12 +20,12 @@ export default {
     RouterLinks
   },
   created() {
-    this.$store.dispatch('fetchPokemonObject')
+    this.$store.dispatch('gen1/fetchPokemonObject')
   },
   watch: {
     $route: {
       handler: to => {
-        document.title = to.meta.title || 'Your Website'
+        document.title = to.meta.title
       },
       immediate: true
     }
