@@ -3,6 +3,7 @@
     <div v-for="pokemon in pokemonArray" :key="pokemon.id">
       <div
         id="card"
+        class="come-in"
         :style="{
           backgroundColor: setTypeColor(pokemon.types[0]) + 95,
           borderColor: setTypeColor(
@@ -60,6 +61,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.come-in {
+  transform: translateY(150px);
+  animation: come-in 0.8s ease forwards;
+  @keyframes come-in {
+    to {
+      transform: translateY(0);
+    }
+  }
+}
+
 #card {
   border: solid $main-color 2px;
   border-radius: 8px;
