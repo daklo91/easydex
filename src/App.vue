@@ -35,6 +35,9 @@ export default {
 
 <style lang="scss">
 body {
+  margin: 0;
+  padding: 0;
+  overflow: auto;
   background: repeating-linear-gradient(
     45deg,
     #fff,
@@ -42,9 +45,7 @@ body {
     #e6f9ff 30px,
     #e6f9ff 60px
   );
-  margin: 0;
-  padding: 0;
-  overflow: auto;
+  background-attachment: fixed;
 }
 
 #app {
