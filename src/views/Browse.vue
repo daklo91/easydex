@@ -19,24 +19,15 @@
       "
       id="flex-container"
     />
-    <div
-      id="navigation"
-      v-if="this.$store.state[this.activeGen].fetchLimitReached && loadMore"
-    >
-      <p class="nav-text">Next</p>
-      <NavigationArrow class="nav-arrow" />
-    </div>
   </div>
 </template>
 
 <script>
 import PokemonCard from '@/components/PokemonCard.vue'
-import NavigationArrow from '@/assets/NavigationArrow.vue'
 
 export default {
   components: {
-    PokemonCard,
-    NavigationArrow
+    PokemonCard
   },
   data() {
     return {
@@ -73,13 +64,9 @@ export default {
       let bottomOfWindow =
         document.documentElement.scrollTop + window.innerHeight ===
         document.documentElement.offsetHeight
-
       if (bottomOfWindow) {
         this.loadMore = true
         this.$store.dispatch(this.activeGen + '/fetchPokemonObject')
-      }
-      if (this.$store.state[this.activeGen].fetchLimitReached == true) {
-        console.log(this.activeGen + ' limit reached!')
       }
     }
   }
@@ -97,29 +84,9 @@ export default {
   padding-top: 120px;
 }
 
-#navigation {
-  padding-top: 30px;
-  padding-bottom: 20px;
-
-  .nav-text {
-    padding-bottom: 6px;
-  }
-
-  .nav-arrow {
-    animation: bounce 1s infinite alternate;
-    @keyframes bounce {
-      from {
-        transform: translateY(0px);
-      }
-      to {
-        transform: translateY(-12px);
-      }
-    }
-  }
-}
-
 #gen-buttons {
   position: fixed;
+  left: 10%;
   background-color: lightgreen;
 }
 </style>
