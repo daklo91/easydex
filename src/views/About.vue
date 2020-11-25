@@ -1,27 +1,22 @@
 <template>
   <div class="about">
+    <div id="spacer"></div>
+    <p>
+      api from PokeApi:
+    </p>
+    <p><a href="https://pokeapi.co/">https://pokeapi.co/</a></p>
     <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <hr />
-    <p>This is an about page.</p>
-    <p>But it can also be a test page.</p>
-    <hr />
-    <TypeIcon :type="'electric'" :size="200" />
-    <hr />
+    <p>svg from duiker101:</p>
+    <p>
+      <a href="https://github.com/duiker101/pokemon-type-svg-icons"
+        >https://github.com/duiker101/pokemon-type-svg-icons</a
+      >
+    </p>
   </div>
 </template>
 
-<script>
-import TypeIcon from '@/components/TypeIcon.vue'
-
-export default {
-  components: {
-    TypeIcon
-  }
+<style lang="scss" scoped>
+#spacer {
+  padding: 100px;
 }
-</script>
-
-<style lang="scss" scoped></style>
+</style>

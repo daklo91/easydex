@@ -5,6 +5,7 @@ import About from '../views/About.vue'
 import Browse from '../views/Browse.vue'
 import Search from '../views/Search.vue'
 import Filter from '../views/Filter.vue'
+import Test from '../views/Test.vue'
 
 Vue.use(VueRouter)
 
@@ -47,6 +48,14 @@ const routes = [
     component: Filter,
     meta: {
       title: 'Filter'
+    }
+  },
+  {
+    path: '/test',
+    name: 'Test',
+    component: Test,
+    meta: {
+      title: 'Test'
     }
   }
 ]

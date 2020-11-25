@@ -5,6 +5,7 @@
     <router-link to="/search">Search</router-link>
     <router-link to="/filter">Filter</router-link>
     <router-link to="/about">About</router-link>
+    <router-link to="/test">Test</router-link>
   </div>
 </template>
 
