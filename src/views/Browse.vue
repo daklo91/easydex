@@ -38,6 +38,9 @@ export default {
   computed: {
     pokemons() {
       return this.$store.getters[this.activeGen + '/getSortedPokemonArray']
+    },
+    placeholder() {
+      return this.$store.state[this.activeGen].placeholderArray
     }
   },
   methods: {

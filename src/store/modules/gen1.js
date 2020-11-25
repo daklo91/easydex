@@ -4,7 +4,9 @@ export default {
     pokemonArray: [],
     pokemonArrayLoopInt: 1,
     fetchLimit: 151,
-    fetchLimitReached: false
+    fetchLimitReached: false,
+    placeholderArrayStart: 1, //I decide not to use the pokemonArrayLoopInt to create the placeholder array because it is mutable and can cause errors
+    placeholderArray: []
   },
   mutations: {
     ADD_POKEMON(state, payload) {
@@ -36,6 +38,11 @@ export default {
         }
       }
       commit('ADD_COUNT')
+    },
+    createPlaceholderArray({ state }) {
+      for (let i = state.placeholderArrayStart; i <= state.fetchLimit; i++) {
+        state.placeholderArray.push(i)
+      }
     }
   },
   getters: {

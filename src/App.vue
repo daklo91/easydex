@@ -21,6 +21,7 @@ export default {
   },
   created() {
     this.$store.dispatch('gen1/fetchPokemonObject')
+    this.$store.dispatch('gen1/createPlaceholderArray')
   },
   watch: {
     $route: {
