@@ -90,6 +90,8 @@ export default {
   }
 
   #image {
+    width: 96px;
+    height: 96px;
     max-width: 110px;
   }
 
