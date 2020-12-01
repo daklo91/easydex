@@ -1,35 +1,51 @@
 <template>
   <div>
     <div v-for="pokemon in pokemonArray" :key="pokemon.id">
-      <div
-        id="card"
-        class="come-in"
-        :style="{
-          backgroundColor: setTypeColor(pokemon.types[0]) + 95,
-          borderColor: setTypeColor(
-            pokemon.types[1] ? pokemon.types[1] : pokemon.types[0]
-          )
-        }"
-      >
-        <div id="header">
-          <p id="id-number"><span id="id-hashtag">#</span>{{ pokemon.id }}</p>
-          <div id="type-icons">
-            <div
-              id="type-icon"
-              v-for="(types, index) in pokemon.types"
-              :key="index"
-            >
-              <TypeIcon :size="15" :type="pokemon.types[index]" />
+      <div v-if="pokemon.id < 1000">
+        <div
+          id="card"
+          class="come-in"
+          :style="{
+            backgroundColor: setTypeColor(pokemon.types[0]) + 95,
+            borderColor: setTypeColor(
+              pokemon.types[1] ? pokemon.types[1] : pokemon.types[0]
+            )
+          }"
+        >
+          <div id="header">
+            <p id="id-number"><span id="id-hashtag">#</span>{{ pokemon.id }}</p>
+            <div id="type-icons">
+              <div
+                id="type-icon"
+                v-for="(types, index) in pokemon.types"
+                :key="index"
+              >
+                <TypeIcon :size="15" :type="pokemon.types[index]" />
+              </div>
             </div>
           </div>
+          <img
+            id="image"
+            :src="pokemon.sprites.front_default"
+            :alt="'Image of ' + pokemon.name"
+            :title="'Image of ' + pokemon.name"
+          />
+          <p>{{ pokemon.species.name }}</p>
         </div>
-        <img
-          id="image"
-          :src="pokemon.sprites.front_default"
-          :alt="'Image of ' + pokemon.name"
-          :title="'Image of ' + pokemon.name"
-        />
-        <p>{{ pokemon.species.name }}</p>
+      </div>
+      <div
+        v-else
+        id="empty-card"
+        v-observe-visibility="{
+          callback: (isVisible, entry) => {
+            pokemonInView(isVisible, pokemon)
+          },
+          once: true,
+          throttle: 100
+        }"
+      >
+        <p><span id="id-hashtag">#</span>{{ pokemon.id }}{{ pokemon.name }}</p>
+        Easydex
       </div>
     </div>
   </div>
@@ -50,11 +66,27 @@ export default {
       default: function() {
         return 'No array recieved'
       }
+    },
+    pokemonGen: {
+      type: String,
+      default: function() {
+        return 'No generation string recieved'
+      }
     }
   },
   methods: {
     setTypeColor(type) {
       return typeColor(type)
+    },
+    pokemonInView(isVisible, pokemon) {
+      if (isVisible) {
+        this.$store.dispatch(
+          this.pokemonGen + '/fetchPokemonObjectByID',
+          pokemon.id
+        )
+        this.$forceUpdate()
+        setTimeout(() => this.$forceUpdate(), 200)
+      }
     }
   }
 }
@@ -68,6 +100,20 @@ export default {
     to {
       transform: translateY(0);
     }
+  }
+}
+
+#empty-card {
+  border: solid $main-color 2px;
+  border-radius: 8px;
+  width: 200px;
+  height: 220px;
+  margin: 10px;
+  padding: 5px;
+  box-sizing: border-box;
+
+  #id-hashtag {
+    font: 150% $sub-title-font;
   }
 }
 
