@@ -6,19 +6,21 @@
       <button @click="setActiveGen('gen2')">Gen 2</button>
       <button @click="setActiveGen('gen3')">Gen 3</button>
       <p>{{ activeGen }}</p>
+      <p>{{ placeholder.length }}</p>
     </div>
     <div id="spacer"></div>
     <PokemonCard
-      v-bind:pokemonArray="pokemons.slice(0, 12)"
+      v-bind:pokemonArray="placeholder"
+      v-bind:pokemonGen="activeGen"
       id="flex-container"
     />
-    <PokemonCard
+    <!-- <PokemonCard
       v-if="loadMore"
       v-bind:pokemonArray="
         pokemons.slice(12, this.$store.state[this.activeGen].fetchLimit)
       "
       id="flex-container"
-    />
+    /> -->
   </div>
 </template>
 
@@ -40,7 +42,7 @@ export default {
       return this.$store.getters[this.activeGen + '/getSortedPokemonArray']
     },
     placeholder() {
-      return this.$store.state[this.activeGen].placeholderArray
+      return this.$store.getters[this.activeGen + '/getPlaceholderArray']
     }
   },
   methods: {
