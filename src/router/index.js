@@ -6,6 +6,7 @@ import Browse from '../views/Browse.vue'
 import Search from '../views/Search.vue'
 import Filter from '../views/Filter.vue'
 import Test from '../views/Test.vue'
+import Generation from '../views/Generation.vue'
 
 Vue.use(VueRouter)
 
@@ -32,7 +33,24 @@ const routes = [
     component: Browse,
     meta: {
       title: 'Browse'
-    }
+    },
+    children: [
+      {
+        path: 'gen1',
+        name: 'Generation I',
+        component: Generation
+      },
+      {
+        path: 'gen2',
+        name: 'Generation II',
+        component: Generation
+      },
+      {
+        path: 'gen3',
+        name: 'Generation III',
+        component: Generation
+      }
+    ]
   },
   {
     path: '/search',

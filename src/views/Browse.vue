@@ -2,25 +2,22 @@
   <div>
     <div id="gen-buttons">
       <button @click="consoleLog(timeout)">log timeout</button>
-      <button @click="setActiveGen('gen1')">Gen 1</button>
+      <!-- <button @click="setActiveGen('gen1')">Gen 1</button>
       <button @click="setActiveGen('gen2')">Gen 2</button>
-      <button @click="setActiveGen('gen3')">Gen 3</button>
+      <button @click="setActiveGen('gen3')">Gen 3</button> -->
+      <router-link to="/browse/gen1">Gen I</router-link>
+      <router-link to="/browse/gen2">Gen II</router-link>
+      <router-link to="/browse/gen3">Gen III</router-link>
       <p>{{ activeGen }}</p>
       <p>{{ placeholder.length }}</p>
     </div>
     <div id="spacer"></div>
+    <router-view></router-view>
     <PokemonCard
       v-bind:pokemonArray="placeholder"
       v-bind:pokemonGen="activeGen"
       id="flex-container"
     />
-    <!-- <PokemonCard
-      v-if="loadMore"
-      v-bind:pokemonArray="
-        pokemons.slice(12, this.$store.state[this.activeGen].fetchLimit)
-      "
-      id="flex-container"
-    /> -->
   </div>
 </template>
 
@@ -38,41 +35,18 @@ export default {
     }
   },
   computed: {
-    pokemons() {
-      return this.$store.getters[this.activeGen + '/getSortedPokemonArray']
-    },
     placeholder() {
       return this.$store.getters[this.activeGen + '/getPlaceholderArray']
     }
   },
   methods: {
     setActiveGen(gen) {
-      this.loadMore = false
       document.body.scrollTop = 0
       document.documentElement.scrollTop = 0
       this.activeGen = gen
-      if (this.pokemons.length < 12) {
-        this.$store.dispatch(this.activeGen + '/fetchPokemonObject')
-      }
-      if (this.pokemons.length) {
-        setTimeout(() => {
-          this.loadMore = true
-        }, 200)
-      }
     },
     consoleLog(input) {
       console.log(input)
-    }
-  },
-  mounted() {
-    window.onscroll = () => {
-      let bottomOfWindow =
-        document.documentElement.scrollTop + window.innerHeight ===
-        document.documentElement.offsetHeight
-      if (bottomOfWindow) {
-        this.loadMore = true
-        this.$store.dispatch(this.activeGen + '/fetchPokemonObject')
-      }
     }
   }
 }

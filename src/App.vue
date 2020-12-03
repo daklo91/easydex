@@ -20,7 +20,6 @@ export default {
     RouterLinks
   },
   created() {
-    this.$store.dispatch('gen1/fetchPokemonObject')
     this.$store.dispatch('gen1/createPlaceholderArray')
     this.$store.dispatch('gen2/createPlaceholderArray')
   },
