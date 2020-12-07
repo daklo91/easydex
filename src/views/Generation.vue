@@ -1,20 +1,30 @@
 <template>
   <div>
-    <h1>Generation X</h1>
-    <!-- <h2>{{ this.$parent.activeGen }}</h2>
-    <h3>{{ $route.path }}</h3> -->
+    <PokemonCard v-bind:pokemonArray="activeGenArray" id="flex-container" />
   </div>
 </template>
 
 <script>
+import PokemonCard from '@/components/PokemonCard.vue'
 export default {
-  props: {
-    activeGen: {
-      type: String,
-      default: 'No activeGen'
+  components: {
+    PokemonCard
+  },
+  computed: {
+    activeGen() {
+      return this.$route.path.slice(-4)
+    },
+    activeGenArray() {
+      return this.$store.getters[this.activeGen + 'Array']
     }
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+</style>
