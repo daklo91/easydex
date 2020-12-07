@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="pokemon in pokemonArray" :key="pokemon.id">
-      <div v-if="pokemon.id < 1000">
+      <div v-if="Object.keys(pokemon).length > 1">
         <div
           id="card"
           class="come-in"
@@ -41,7 +41,7 @@
             pokemonInView(isVisible, pokemon)
           },
           once: true,
-          throttle: 100
+          throttle: 700
         }"
       >
         <p><span id="id-hashtag">#</span>{{ pokemon.id }}{{ pokemon.name }}</p>
@@ -55,7 +55,6 @@
 import typeColor from '@/scripts/typeColors.js'
 import TypeIcon from '@/components/TypeIcon.vue'
 
-//pokemon.sprites.other['official-artwork'].front_default <--- Use this in the image src for the official artwork. There is one for svg's too.
 export default {
   components: {
     TypeIcon
@@ -66,12 +65,6 @@ export default {
       default: function() {
         return 'No array recieved'
       }
-    },
-    pokemonGen: {
-      type: String,
-      default: function() {
-        return 'No generation string recieved'
-      }
     }
   },
   methods: {
@@ -80,12 +73,7 @@ export default {
     },
     pokemonInView(isVisible, pokemon) {
       if (isVisible) {
-        this.$store.dispatch(
-          this.pokemonGen + '/fetchPokemonObjectByID',
-          pokemon.id
-        )
-        this.$forceUpdate()
-        setTimeout(() => this.$forceUpdate(), 200)
+        this.$store.dispatch('updatePokemonArrayByID', pokemon.id)
       }
     }
   }
@@ -93,16 +81,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.come-in {
-  transform: translateY(150px);
-  animation: come-in 0.8s ease forwards;
-  @keyframes come-in {
-    to {
-      transform: translateY(0);
-    }
-  }
-}
-
 #empty-card {
   border: solid $main-color 2px;
   border-radius: 8px;
