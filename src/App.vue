@@ -19,9 +19,8 @@ export default {
     Menu,
     RouterLinks
   },
-  created() {
-    this.$store.dispatch('gen1/createPlaceholderArray')
-    this.$store.dispatch('gen2/createPlaceholderArray')
+  beforeCreate() {
+    this.$store.dispatch('createEmptyPokemonArray')
   },
   watch: {
     $route: {
