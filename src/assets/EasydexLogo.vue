@@ -1,8 +1,8 @@
 <template>
   <div>
     <svg
-      width="250px"
-      height="242px"
+      :width="width + 'px'"
+      :height="height + 'px'"
       viewBox="0 0 250 242"
       version="1.1"
       xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -84,6 +84,21 @@
     </svg>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    width: {
+      type: Number,
+      default: 250
+    },
+    height: {
+      type: Number,
+      default: 242
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 @media only screen and (max-width: 300px) {
