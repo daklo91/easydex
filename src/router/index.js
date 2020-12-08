@@ -29,6 +29,7 @@ const routes = [
   },
   {
     path: '/browse',
+    redirect: '/browse/gen1',
     name: 'Browse',
     component: Browse,
     meta: {
