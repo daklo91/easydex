@@ -74,7 +74,7 @@ export default {
     pokemonArray: {
       type: Array,
       default: function() {
-        return 'No array recieved'
+        return []
       }
     }
   },
