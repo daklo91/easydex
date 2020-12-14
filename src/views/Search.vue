@@ -10,6 +10,7 @@
     <PokemonCard :pokemonArray="pokemonSearchArray" v-if="!inputSearch" />
     <p>Index or Name</p>
     <div>
+      <div @click.prevent="clearInput"><ClearIcon /></div>
       <button
         style="background-color: red"
         @click.prevent="clearInput"
@@ -30,15 +31,21 @@
       >
         Search
       </button>
+      <div><SearchIcon @click.prevent="searchByID" /></div>
     </div>
   </div>
 </template>
 
 <script>
 import PokemonCard from '@/components/PokemonCard.vue'
+import ClearIcon from '@/assets/ClearIcon.vue'
+import SearchIcon from '@/assets/SearchIcon.vue'
+
 export default {
   components: {
-    PokemonCard
+    PokemonCard,
+    ClearIcon,
+    SearchIcon
   },
   computed: {
     pokemonSearchArray() {
