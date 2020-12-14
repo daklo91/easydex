@@ -10,6 +10,9 @@ export default new Vuex.Store({
   mutations: {
     ADD_POKEMON(state, data) {
       state.pokemonArray.splice(data.id - 1, 1, data)
+    },
+    ADD_ARRAY(state, dataList) {
+      state.pokemonArray = dataList
     }
   },
   actions: {
@@ -18,19 +21,21 @@ export default new Vuex.Store({
       fetch('https://pokeapi.co/api/v2/pokemon/' + id)
         .then(resp => resp.json())
         .then(function(data) {
-          console.log(data)
           commit('ADD_POKEMON', data)
         })
         .catch(function(error) {
           console.log('Error at fetchPokemonObjectByID action: ' + error)
         })
     },
-    createEmptyPokemonArray({ state }) {
-      for (var i = 1; i <= 893; i++) {
-        state.pokemonArray.push({
-          id: i
+    createEmptyPokemonArray({ commit }) {
+      fetch('https://pokeapi.co/api/v2/pokemon?limit=893')
+        .then(resp => resp.json())
+        .then(function(dataList) {
+          commit('ADD_ARRAY', dataList.results)
         })
-      }
+        .catch(function(error) {
+          console.log('Error at createEmptyPokemonArray action: ' + error)
+        })
     }
   },
   getters: {
