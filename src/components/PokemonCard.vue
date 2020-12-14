@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div v-for="pokemon in pokemonArray" :key="pokemon.id">
+    <div v-for="pokemon in pokemonArray" :key="pokemon.name">
       <transition name="flip">
-        <div :key="10001" v-if="Object.keys(pokemon).length > 1">
+        <div :key="10001" v-if="Object.keys(pokemon).length > 2">
           <div
             id="card"
             class="come-in"
@@ -48,9 +48,10 @@
             throttle: 700
           }"
         >
-          <p>
+          <!-- //* This needs to be reworked.
+             <p> 
             <span id="id-hashtag">#</span>{{ pokemon.id }}{{ pokemon.name }}
-          </p>
+          </p> -->
           <h3 class="easydex-title top">Easydex</h3>
           <EasydexLogo :width="60" :height="70" />
           <h3 class="easydex-title rotate">Easydex</h3>
@@ -84,7 +85,7 @@ export default {
     },
     pokemonInView(isVisible, pokemon) {
       if (isVisible) {
-        this.$store.dispatch('updatePokemonArrayByID', pokemon.id)
+        this.$store.dispatch('updatePokemonArrayByID', pokemon.name)
       }
     }
   }
