@@ -7,7 +7,7 @@
       src="../assets/PikachuByDoopliss.jpg"
       alt="Pikachu"
     />
-    <PokemonCard :pokemonArray="pokemonSearchArray" />
+    <PokemonCard :pokemonArray="pokemonSearchArray" v-if="!inputSearch" />
     <p>Index or Name</p>
     <div>
       <button
@@ -56,8 +56,17 @@ export default {
   },
   methods: {
     searchByID() {
-      this.confirmedInputSearch = this.inputSearch
-      this.inputSearch = null
+      if (isNaN(this.inputSearch) === false) {
+        this.confirmedInputSearch = this.inputSearch
+        this.inputSearch = null
+      } else
+        for (var i = 0; i < this.$store.state.pokemonArray.length; i++) {
+          if (this.$store.state.pokemonArray[i].name == this.inputSearch) {
+            this.confirmedInputSearch = i + 1
+            this.inputSearch = null
+            break
+          }
+        }
     },
     clearInput() {
       this.inputSearch = null
