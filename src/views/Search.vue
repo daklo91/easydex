@@ -32,15 +32,22 @@
         Search
       </button>
       <div><SearchIcon @click.prevent="searchByID" /></div>
-      <p v-if="errorMessage">No such Pokemon exist.</p>
+      <p v-if="errorMessage">No such Pokemon exist</p>
+      <p v-if="fuseArray.length > 0">Similar Pokemon:</p>
+      <div v-for="name in fuseArray" :key="name.id">
+        {{ name.item.name }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+//TODO: Tweak fuse, create buttons from SVG,
+
 import PokemonCard from '@/components/PokemonCard.vue'
 import ClearIcon from '@/assets/ClearIcon.vue'
 import SearchIcon from '@/assets/SearchIcon.vue'
+import Fuse from 'fuse.js'
 
 export default {
   components: {
@@ -53,12 +60,20 @@ export default {
       if (this.confirmedInputSearch) {
         return [this.$store.state.pokemonArray[this.confirmedInputSearch - 1]]
       } else return []
+    },
+    fuseArray() {
+      const options = {
+        keys: ['name']
+      }
+      const fuse = new Fuse(this.$store.state.pokemonArray, options)
+      const result = fuse.search(this.inputSearch)
+      return result
     }
   },
   data() {
     return {
-      inputSearch: null,
-      confirmedInputSearch: null,
+      inputSearch: '',
+      confirmedInputSearch: '',
       pokemonByID: [],
       errorMessage: false
     }
