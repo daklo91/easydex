@@ -3,47 +3,25 @@
     <div class="spacer"></div>
     <img
       v-if="!confirmedInputSearch"
-      class="img"
       src="../assets/PikachuByDoopliss.jpg"
-      alt="Pikachu"
+      :class="{ opacity: inputSearch }"
     />
+    <ul class="suggest" v-for="(name, index) in fuseArray" :key="name.id">
+      <li v-if="index <= 4">{{ name.item.name }}</li>
+    </ul>
     <PokemonCard :pokemonArray="pokemonSearchArray" v-if="!inputSearch" />
     <p>Index or Name</p>
-    <div>
-      <div @click.prevent="clearInput"><ClearIcon /></div>
-      <button
-        style="background-color: red"
-        @click.prevent="clearInput"
-        class="button"
-      >
-        Clear
-      </button>
-      <input
-        @keyup.enter="searchByID"
-        class="input"
-        type="text"
-        v-model="inputSearch"
-      />
-      <button
-        style="background-color: limegreen"
-        @click.prevent="searchByID"
-        class="button"
-      >
-        Search
-      </button>
-      <div><SearchIcon @click.prevent="searchByID" /></div>
+    <div id="input-container">
+      <div class="svg-buttons" @click.prevent="clearInput"><ClearIcon /></div>
+      <input @keyup.enter="searchByID" type="text" v-model="inputSearch" />
+      <div class="svg-buttons"><SearchIcon @click.prevent="searchByID" /></div>
       <p v-if="errorMessage">No such Pokemon exist</p>
-      <p v-if="fuseArray.length > 0">Similar Pokemon:</p>
-      <div v-for="name in fuseArray" :key="name.id">
-        {{ name.item.name }}
-      </div>
     </div>
+    <p v-if="fuseArray.length > 0">Similar Pokemon:</p>
   </div>
 </template>
 
 <script>
-//TODO: Tweak fuse, create buttons from SVG,
-
 import PokemonCard from '@/components/PokemonCard.vue'
 import ClearIcon from '@/assets/ClearIcon.vue'
 import SearchIcon from '@/assets/SearchIcon.vue'
@@ -63,7 +41,9 @@ export default {
     },
     fuseArray() {
       const options = {
-        keys: ['name']
+        keys: ['name'],
+        minMatchCharLength: 3,
+        threshold: 0.3
       }
       const fuse = new Fuse(this.$store.state.pokemonArray, options)
       const result = fuse.search(this.inputSearch)
@@ -88,7 +68,7 @@ export default {
         for (var i = 0; i < this.$store.state.pokemonArray.length; i++) {
           if (this.$store.state.pokemonArray[i].name == input) {
             this.confirmedInputSearch = i + 1
-            this.inputSearch = null
+            this.inputSearch = ''
             break
           } else if (this.$store.state.pokemonArray[i].name != input) {
             this.errorMessage = true
@@ -99,13 +79,21 @@ export default {
       }
     },
     clearInput() {
-      this.inputSearch = null
+      this.inputSearch = ''
     }
   }
 }
 </script>
 
 <style scoped>
+.svg-buttons:hover {
+  cursor: pointer;
+}
+
+#input-container {
+  display: flex;
+}
+
 .flex-container {
   display: flex;
   flex-direction: column;
@@ -116,12 +104,22 @@ export default {
   padding: 50px;
 }
 
-.img {
+img {
   width: 450px;
+  z-index: 1;
 }
 
-.input {
-  margin-top: 20px;
+.suggest {
+  z-index: 11;
+  position: absolute;
+}
+
+.opacity {
+  opacity: 0.5;
+}
+
+input {
+  margin: 0px;
   width: 200px;
   height: 30px;
   border-radius: 8px;
