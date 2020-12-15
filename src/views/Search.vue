@@ -32,6 +32,7 @@
         Search
       </button>
       <div><SearchIcon @click.prevent="searchByID" /></div>
+      <p v-if="errorMessage">No such Pokemon exist.</p>
     </div>
   </div>
 </template>
@@ -58,22 +59,29 @@ export default {
     return {
       inputSearch: null,
       confirmedInputSearch: null,
-      pokemonByID: []
+      pokemonByID: [],
+      errorMessage: false
     }
   },
   methods: {
     searchByID() {
-      if (isNaN(this.inputSearch) === false) {
-        this.confirmedInputSearch = this.inputSearch
+      var input = this.inputSearch.toLowerCase()
+      if (isNaN(input) === false) {
+        this.confirmedInputSearch = input
         this.inputSearch = null
-      } else
+      } else if (typeof input === 'string') {
         for (var i = 0; i < this.$store.state.pokemonArray.length; i++) {
-          if (this.$store.state.pokemonArray[i].name == this.inputSearch) {
+          if (this.$store.state.pokemonArray[i].name == input) {
             this.confirmedInputSearch = i + 1
             this.inputSearch = null
             break
+          } else if (this.$store.state.pokemonArray[i].name != input) {
+            this.errorMessage = true
           }
         }
+      } else {
+        this.errormessage = true
+      }
     },
     clearInput() {
       this.inputSearch = null
