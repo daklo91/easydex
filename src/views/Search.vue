@@ -3,8 +3,10 @@
     <div class="spacer"></div>
     <div class="box">
       <div class="text">
-        <ul v-for="(name, index) in fuseArray" :key="name.id">
-          <li v-if="index <= 4">{{ name.item.name }}</li>
+        <ul v-for="(name, index) in fuseArray" :key="name.id" ref="refWord">
+          <li :class="{ 'active-item': currentItem === index + 1 }">
+            {{ name.item.name }}
+          </li>
         </ul>
       </div>
       <img
@@ -14,14 +16,20 @@
       />
     </div>
     <PokemonCard :pokemonArray="pokemonSearchArray" v-if="!inputSearch" />
-    <p>Index or Name</p>
+    <p :class="{ opacity: inputSearch }">Index or Name</p>
     <div id="input-container">
       <div class="svg-buttons" @click.prevent="clearInput"><ClearIcon /></div>
-      <input @keyup.enter="searchByID" type="text" v-model="inputSearch" />
+      <input
+        ref="refInput"
+        @keyup.enter="searchByID"
+        type="text"
+        v-model="inputSearch"
+      />
       <div class="svg-buttons"><SearchIcon @click.prevent="searchByID" /></div>
       <p v-if="errorMessage">No such Pokemon exist</p>
     </div>
     <p v-if="fuseArray.length > 0">Similar Pokemon:</p>
+    <p>{{ activeItemtext }}</p>
   </div>
 </template>
 
@@ -51,7 +59,7 @@ export default {
       }
       const fuse = new Fuse(this.$store.state.pokemonArray, options)
       const result = fuse.search(this.inputSearch)
-      return result
+      return result.slice(0, 5)
     }
   },
   data() {
@@ -59,8 +67,16 @@ export default {
       inputSearch: '',
       confirmedInputSearch: '',
       pokemonByID: [],
-      errorMessage: false
+      errorMessage: false,
+      currentItem: 0,
+      activeItemtext: ''
     }
+  },
+  mounted() {
+    document.addEventListener('keydown', this.nextItem)
+  },
+  destroyed() {
+    document.removeEventListener('keydown', this.nextItem)
   },
   methods: {
     searchByID() {
@@ -84,12 +100,32 @@ export default {
     },
     clearInput() {
       this.inputSearch = ''
+    },
+    nextItem() {
+      if (event.keyCode == 38 && this.currentItem > 0) {
+        this.currentItem--
+        event.preventDefault()
+      } else if (
+        event.keyCode == 40 &&
+        this.currentItem < this.fuseArray.length
+      ) {
+        this.currentItem++
+      }
+
+      this.activeItemtext = this.$refs.refWord[this.currentItem - 1].innerText
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.active-item {
+  color: $pokemon-yellow-color;
+  background-color: $pokemon-blue-color;
+  padding: 5px;
+  border-radius: 8px;
+}
+
 .svg-buttons:hover {
   cursor: pointer;
 }
@@ -102,6 +138,15 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+ul {
+  padding: 0;
+  text-transform: capitalize;
+}
+
+li {
+  list-style-type: none;
 }
 
 .spacer {
@@ -122,7 +167,7 @@ img {
 }
 
 .opacity {
-  opacity: 0.5;
+  opacity: 0.2;
 }
 
 input {
