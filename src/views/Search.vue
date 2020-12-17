@@ -1,14 +1,18 @@
 <template>
   <div class="flex-container">
     <div class="spacer"></div>
-    <img
-      v-if="!confirmedInputSearch"
-      src="../assets/PikachuByDoopliss.jpg"
-      :class="{ opacity: inputSearch }"
-    />
-    <ul class="suggest" v-for="(name, index) in fuseArray" :key="name.id">
-      <li v-if="index <= 4">{{ name.item.name }}</li>
-    </ul>
+    <div class="box">
+      <div class="text">
+        <ul v-for="(name, index) in fuseArray" :key="name.id">
+          <li v-if="index <= 4">{{ name.item.name }}</li>
+        </ul>
+      </div>
+      <img
+        v-if="!confirmedInputSearch"
+        src="../assets/PikachuByDoopliss.jpg"
+        :class="{ opacity: inputSearch }"
+      />
+    </div>
     <PokemonCard :pokemonArray="pokemonSearchArray" v-if="!inputSearch" />
     <p>Index or Name</p>
     <div id="input-container">
@@ -109,9 +113,12 @@ img {
   z-index: 1;
 }
 
-.suggest {
-  z-index: 11;
+.text {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 }
 
 .opacity {
