@@ -6,34 +6,39 @@
         <ul v-for="(name, index) in fuseArray" :key="name.id" ref="refWord">
           <li
             :class="{ 'active-item': currentItem === index + 1 }"
-            @click="searchByID(name.item.name)"
+            @click="searchByClick(name.item.name)"
           >
             {{ name.item.name }}
           </li>
         </ul>
       </div>
       <img
-        v-if="!confirmedInputSearch"
         src="../assets/PikachuByDoopliss.jpg"
         :class="{ opacity: inputSearch }"
       />
     </div>
-    <PokemonCard :pokemonArray="pokemonSearchArray" v-if="!inputSearch" />
-    <p :class="{ opacity: inputSearch }">Index or Name</p>
-    <div id="input-container">
-      <div class="svg-buttons" @click.prevent="clearInput"><ClearIcon /></div>
-      <input
-        ref="refInput"
-        @keyup.enter="searchByID"
-        type="text"
-        v-model="inputSearch"
-      />
-      <div class="svg-buttons"><SearchIcon @click.prevent="searchByID" /></div>
-      <p v-if="errorMessage">No such Pokemon exist</p>
+    <PokemonCard
+      class="pokemoncard"
+      :pokemonArray="pokemonSearchArray"
+      v-if="inputSearch"
+    />
+    <div class="input-container-outer">
+      <p :class="{ opacity: inputSearch }">
+        Index or Name
+      </p>
+      <div id="input-container">
+        <div class="svg-buttons" @click.prevent="clearInput"><ClearIcon /></div>
+        <input
+          ref="refInput"
+          @keyup.enter="searchByInput"
+          type="text"
+          v-model.number="inputSearch"
+        />
+        <div class="svg-buttons">
+          <SearchIcon @click.prevent="searchByID" />
+        </div>
+      </div>
     </div>
-    <p v-if="fuseArray.length > 0">Similar Pokemon:</p>
-    <p>{{ activeItemtext }}</p>
-    <p>{{ currentItem }}</p>
   </div>
 </template>
 
@@ -71,42 +76,53 @@ export default {
       inputSearch: '',
       confirmedInputSearch: '',
       pokemonByID: [],
-      errorMessage: false,
       currentItem: 0,
       activeItemtext: ''
     }
   },
   mounted() {
     document.addEventListener('keydown', this.nextItem)
+    document.addEventListener('keydown', this.searchBySelect)
   },
   destroyed() {
     document.removeEventListener('keydown', this.nextItem)
   },
   methods: {
-    searchByID(clickEvent) {
-      var input = this.inputSearch.toLowerCase()
-      if (clickEvent) {
-        input = clickEvent
+    searchBySelect() {
+      if (this.currentItem > 0 && event.keyCode == 13) {
+        for (var i = 0; i < this.$store.state.pokemonArray.length; i++) {
+          if (
+            this.$store.state.pokemonArray[i].name ==
+            this.activeItemtext.toLowerCase()
+          ) {
+            this.confirmedInputSearch = i + 1
+            break
+          }
+        }
       }
-      if (this.currentItem > 0) {
-        input = this.activeItemtext.toLowerCase()
+    },
+    searchByClick(clickEvent) {
+      for (var i = 0; i < this.$store.state.pokemonArray.length; i++) {
+        if (
+          this.$store.state.pokemonArray[i].name == clickEvent.toLowerCase()
+        ) {
+          this.confirmedInputSearch = i + 1
+          break
+        }
       }
-
-      if (isNaN(input) === false) {
+    },
+    searchByInput() {
+      var input = this.inputSearch
+      if (typeof input === 'number' && this.currentItem === 0) {
         this.confirmedInputSearch = input
-        this.inputSearch = null
-      } else if (typeof input === 'string') {
+      } else if (typeof input === 'string' && this.currentItem === 0) {
+        input = input.toLowerCase()
         for (var i = 0; i < this.$store.state.pokemonArray.length; i++) {
           if (this.$store.state.pokemonArray[i].name == input) {
             this.confirmedInputSearch = i + 1
-            this.inputSearch = ''
             break
-          } else if (this.$store.state.pokemonArray[i].name != input) {
-            this.errorMessage = true
           }
         }
-      } else {
-        this.errormessage = true
       }
     },
     clearInput() {
@@ -139,6 +155,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.input-container-outer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 60%;
+}
+
 .active-item {
   color: $pokemon-yellow-color;
   background-color: $pokemon-blue-color;
@@ -184,6 +208,11 @@ img {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
+}
+.pokemoncard {
+  position: absolute;
+  top: 14%;
+  z-index: 11;
 }
 
 .opacity {
