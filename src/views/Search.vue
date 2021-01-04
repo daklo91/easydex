@@ -4,7 +4,10 @@
     <div class="box">
       <div class="text">
         <ul v-for="(name, index) in fuseArray" :key="name.id" ref="refWord">
-          <li :class="{ 'active-item': currentItem === index + 1 }">
+          <li
+            :class="{ 'active-item': currentItem === index + 1 }"
+            @click="searchByID(name.item.name)"
+          >
             {{ name.item.name }}
           </li>
         </ul>
@@ -30,6 +33,7 @@
     </div>
     <p v-if="fuseArray.length > 0">Similar Pokemon:</p>
     <p>{{ activeItemtext }}</p>
+    <p>{{ currentItem }}</p>
   </div>
 </template>
 
@@ -59,7 +63,7 @@ export default {
       }
       const fuse = new Fuse(this.$store.state.pokemonArray, options)
       const result = fuse.search(this.inputSearch)
-      return result.slice(0, 5)
+      return result.slice(0, 5).reverse()
     }
   },
   data() {
@@ -79,8 +83,15 @@ export default {
     document.removeEventListener('keydown', this.nextItem)
   },
   methods: {
-    searchByID() {
+    searchByID(clickEvent) {
       var input = this.inputSearch.toLowerCase()
+      if (clickEvent) {
+        input = clickEvent
+      }
+      if (this.currentItem > 0) {
+        input = this.activeItemtext.toLowerCase()
+      }
+
       if (isNaN(input) === false) {
         this.confirmedInputSearch = input
         this.inputSearch = null
@@ -102,17 +113,26 @@ export default {
       this.inputSearch = ''
     },
     nextItem() {
-      if (event.keyCode == 38 && this.currentItem > 0) {
+      if (event.keyCode == 38 && this.currentItem == 0) {
+        this.currentItem = this.fuseArray.length
+      } else if (event.keyCode == 38 && this.currentItem > 0) {
         this.currentItem--
         event.preventDefault()
+      } else if (
+        event.keyCode == 40 &&
+        this.currentItem == this.fuseArray.length
+      ) {
+        this.currentItem = 0
       } else if (
         event.keyCode == 40 &&
         this.currentItem < this.fuseArray.length
       ) {
         this.currentItem++
       }
-
       this.activeItemtext = this.$refs.refWord[this.currentItem - 1].innerText
+    },
+    setCurrentItem() {
+      this.currentItem = this.fuseArray
     }
   }
 }
