@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>Testing Netlify</div>
 </template>
 
 <script>
