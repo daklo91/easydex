@@ -1,7 +1,13 @@
 import scssColor from '@/styles/_typeColor.scss'
 
 function typeColor(type) {
-  switch (type.type.name) {
+  var coolVar = ''
+  if (typeof type === 'object') {
+    coolVar = type.type.name
+  } else if (typeof type === 'string') {
+    coolVar = type
+  }
+  switch (coolVar) {
     case 'normal':
       type = scssColor.normalColor
       break
