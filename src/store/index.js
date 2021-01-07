@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    pokemonArray: []
+    pokemonArray: [],
+    originalPokemonArray: []
   },
   mutations: {
     ADD_POKEMON(state, data) {
@@ -13,6 +14,9 @@ export default new Vuex.Store({
     },
     ADD_ARRAY(state, dataList) {
       state.pokemonArray = dataList
+    },
+    ADD_ORIGINAL_POKEMON(state, data) {
+      state.originalPokemonArray.push(data)
     }
   },
   actions: {
@@ -36,6 +40,23 @@ export default new Vuex.Store({
         .catch(function(error) {
           console.log('Error at createEmptyPokemonArray action: ' + error)
         })
+    },
+    fetchOriginalPokemon({ commit }) {
+      for (var i = 1; i <= 151; i++) {
+        fetch('https://pokeapi.co/api/v2/pokemon/' + i)
+          .then(resp => resp.json())
+          .then(function(data) {
+            commit('ADD_ORIGINAL_POKEMON', data)
+          })
+          .catch(function(error) {
+            console.log(
+              'Error at fetchOriginalPokemon action: ' +
+                'could not fetch pokemon with ID: ' +
+                i +
+                error
+            )
+          })
+      }
     }
   },
   getters: {
