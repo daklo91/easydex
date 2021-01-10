@@ -12,7 +12,18 @@
         <p>{{ type }}</p>
       </div>
     </div>
+    <div class="weight-buttons">
+      <div
+        class="weight-button"
+        v-for="weight in weights"
+        :key="weight.id"
+        @click="pushWeight(weight)"
+      >
+        <p>{{ weight }} weight</p>
+      </div>
+    </div>
     <p>{{ filterTypes }}</p>
+    <p>{{ filterWeights }}</p>
     <button @click.prevent="filterPokemon">Filter</button>
     <!-- <div v-for="pokemon in filteredPokemon" :key="pokemon.id">
       {{ pokemon.name }}
@@ -51,6 +62,8 @@ export default {
         'fairy'
       ],
       filterTypes: [],
+      weights: ['light', 'medium', 'heavy'],
+      filterWeights: [],
       filteredPokemon: []
     }
   },
@@ -63,17 +76,64 @@ export default {
         this.filterTypes.splice(index, 1)
       }
     },
+    pushWeight(weight) {
+      var index = this.filterWeights.indexOf(weight)
+      if (index === -1) {
+        this.filterWeights.push(weight)
+      } else if (index > -1) {
+        this.filterWeights.splice(index, 1)
+      }
+    },
     filterPokemon() {
       this.filteredPokemon = []
       var pokemons = this.$store.state.originalPokemonArray
-      var filtered = null
 
+      //Filter by Type
       if (this.filterTypes.length > 0) {
-        filtered = pokemons.filter(pokemon =>
+        this.filteredPokemon = pokemons.filter(pokemon =>
           pokemon.types.some(type => this.filterTypes.includes(type.type.name))
         )
+      } else {
+        this.filteredPokemon = pokemons
       }
-      this.filteredPokemon = filtered
+
+      //Filter by Weight
+      if (
+        this.filterWeights.includes('light') &&
+        this.filterWeights.includes('medium')
+      ) {
+        this.filteredPokemon = this.filteredPokemon.filter(
+          pokemon => pokemon.weight < 800
+        )
+      } else if (
+        this.filterWeights.includes('medium') &&
+        this.filterWeights.includes('heavy')
+      ) {
+        this.filteredPokemon = this.filteredPokemon.filter(
+          pokemon => pokemon.weight > 200
+        )
+      } else if (
+        this.filterWeights.includes('light') &&
+        this.filterWeights.includes('heavy')
+      ) {
+        for (var i = 200; i <= 800; i++) {
+          this.filteredPokemon = this.filteredPokemon.filter(
+            pokemon => pokemon.weight !== i
+          )
+        }
+      } else if (this.filterWeights.includes('light')) {
+        this.filteredPokemon = this.filteredPokemon.filter(
+          pokemon => pokemon.weight < 200
+        )
+      } else if (this.filterWeights.includes('medium')) {
+        this.filteredPokemon = this.filteredPokemon.filter(
+          pokemon => pokemon.weight > 200 && pokemon.weight < 800
+        )
+      } else if (this.filterWeights.includes('heavy')) {
+        this.filteredPokemon = this.filteredPokemon.filter(
+          pokemon => pokemon.weight > 800
+        )
+      }
     },
     setButtonColor(type) {
       return typeColor(type)
