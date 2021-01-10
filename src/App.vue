@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <p class="pokemon-loader">
+      loading pokemon: {{ this.$store.state.originalPokemonArray.length }}
+    </p>
     <div id="nav-menu">
       <Menu />
     </div>
@@ -21,6 +24,7 @@ export default {
   },
   beforeCreate() {
     this.$store.dispatch('createEmptyPokemonArray')
+    this.$store.dispatch('fetchOriginalPokemon')
   },
   watch: {
     $route: {
@@ -34,6 +38,11 @@ export default {
 </script>
 
 <style lang="scss">
+.pokemon-loader {
+  margin: 0;
+  padding-top: 20px;
+}
+
 body {
   margin: 0;
   padding: 0;
