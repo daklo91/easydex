@@ -22,9 +22,31 @@
         <p>{{ weight }} weight</p>
       </div>
     </div>
+    <br />
+    <div class="height-buttons">
+      <div
+        class="height-button"
+        v-for="height in heights"
+        :key="height.id"
+        @click="pushHeight(height)"
+      >
+        <p>{{ height }} height</p>
+      </div>
+    </div>
+    <br />
+    <div>
+      <p>Index</p>
+      <input type="number" min="1" v-model.number="indexMin" />
+      to
+      <input type="number" max="893" v-model.number="indexMax" />
+    </div>
+    <br />
     <p>{{ filterTypes }}</p>
     <p>{{ filterWeights }}</p>
+    <p>{{ filterHeights }}</p>
+    <button @click.prevent="clearFilter">Clear</button> |
     <button @click.prevent="filterPokemon">Filter</button>
+    <p>{{ filteredPokemon.length }}</p>
     <div>
       <PokemonCard :pokemonArray="filteredPokemon" class="pokemoncard" />
     </div>
@@ -61,10 +83,23 @@ export default {
       filterTypes: [],
       weights: ['light', 'medium', 'heavy'],
       filterWeights: [],
+      heights: ['small', 'middle', 'tall'],
+      filterHeights: [],
+      indexMin: '',
+      indexMax: '',
+      indexMinDefault: 1,
+      indexMaxDefault: 893,
       filteredPokemon: []
     }
   },
   methods: {
+    clearFilter() {
+      this.filterHeights = []
+      this.filterWeights = []
+      this.filterTypes = []
+      this.indexMin = ''
+      this.indexMax = ''
+    },
     pushType(type) {
       var index = this.filterTypes.indexOf(type)
       if (index === -1) {
@@ -79,6 +114,14 @@ export default {
         this.filterWeights.push(weight)
       } else if (index > -1) {
         this.filterWeights.splice(index, 1)
+      }
+    },
+    pushHeight(height) {
+      var index = this.filterHeights.indexOf(height)
+      if (index === -1) {
+        this.filterHeights.push(height)
+      } else if (index > -1) {
+        this.filterHeights.splice(index, 1)
       }
     },
     filterPokemon() {
@@ -117,6 +160,51 @@ export default {
       if (this.filterWeights.length > 0) {
         var concatWeight = lightPokemons.concat(mediumPokemons, heavyPokemons)
         this.filteredPokemon = concatWeight
+      }
+
+      //Filter by Height
+      var smallPokemons = []
+      var middlePokemons = []
+      var tallPokemons = []
+
+      if (this.filterHeights.includes('small')) {
+        smallPokemons = this.filteredPokemon.filter(
+          pokemon => pokemon.height <= 10
+        )
+      }
+      if (this.filterHeights.includes('middle')) {
+        middlePokemons = this.filteredPokemon.filter(
+          pokemon => pokemon.height >= 11 && pokemon.height <= 20
+        )
+      }
+      if (this.filterHeights.includes('tall')) {
+        tallPokemons = this.filteredPokemon.filter(
+          pokemon => pokemon.height >= 21
+        )
+      }
+      if (this.filterHeights.length > 0) {
+        var concatHeight = smallPokemons.concat(middlePokemons, tallPokemons)
+        this.filteredPokemon = concatHeight
+      }
+
+      //Filter by Index
+      if (this.indexMin) {
+        this.filteredPokemon = this.filteredPokemon.filter(
+          pokemon => pokemon.id >= this.indexMin
+        )
+      } else {
+        this.filteredPokemon = this.filteredPokemon.filter(
+          pokemon => pokemon.id >= this.indexMinDefault
+        )
+      }
+      if (this.indexMax) {
+        this.filteredPokemon = this.filteredPokemon.filter(
+          pokemon => pokemon.id <= this.indexMax
+        )
+      } else {
+        this.filteredPokemon = this.filteredPokemon.filter(
+          pokemon => pokemon.id <= this.indexMaxDefault
+        )
       }
     },
     setButtonColor(type) {
