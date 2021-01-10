@@ -25,9 +25,6 @@
     <p>{{ filterTypes }}</p>
     <p>{{ filterWeights }}</p>
     <button @click.prevent="filterPokemon">Filter</button>
-    <!-- <div v-for="pokemon in filteredPokemon" :key="pokemon.id">
-      {{ pokemon.name }}
-    </div> -->
     <div>
       <PokemonCard :pokemonArray="filteredPokemon" class="pokemoncard" />
     </div>
@@ -98,41 +95,28 @@ export default {
       }
 
       //Filter by Weight
-      if (
-        this.filterWeights.includes('light') &&
-        this.filterWeights.includes('medium')
-      ) {
-        this.filteredPokemon = this.filteredPokemon.filter(
-          pokemon => pokemon.weight < 800
+      var lightPokemons = []
+      var mediumPokemons = []
+      var heavyPokemons = []
+
+      if (this.filterWeights.includes('light')) {
+        lightPokemons = this.filteredPokemon.filter(
+          pokemon => pokemon.weight <= 199
         )
-      } else if (
-        this.filterWeights.includes('medium') &&
-        this.filterWeights.includes('heavy')
-      ) {
-        this.filteredPokemon = this.filteredPokemon.filter(
-          pokemon => pokemon.weight > 200
+      }
+      if (this.filterWeights.includes('medium')) {
+        mediumPokemons = this.filteredPokemon.filter(
+          pokemon => pokemon.weight >= 200 && pokemon.weight <= 799
         )
-      } else if (
-        this.filterWeights.includes('light') &&
-        this.filterWeights.includes('heavy')
-      ) {
-        for (var i = 200; i <= 800; i++) {
-          this.filteredPokemon = this.filteredPokemon.filter(
-            pokemon => pokemon.weight !== i
-          )
-        }
-      } else if (this.filterWeights.includes('light')) {
-        this.filteredPokemon = this.filteredPokemon.filter(
-          pokemon => pokemon.weight < 200
+      }
+      if (this.filterWeights.includes('heavy')) {
+        heavyPokemons = this.filteredPokemon.filter(
+          pokemon => pokemon.weight >= 800
         )
-      } else if (this.filterWeights.includes('medium')) {
-        this.filteredPokemon = this.filteredPokemon.filter(
-          pokemon => pokemon.weight > 200 && pokemon.weight < 800
-        )
-      } else if (this.filterWeights.includes('heavy')) {
-        this.filteredPokemon = this.filteredPokemon.filter(
-          pokemon => pokemon.weight > 800
-        )
+      }
+      if (this.filterWeights.length > 0) {
+        var concatWeight = lightPokemons.concat(mediumPokemons, heavyPokemons)
+        this.filteredPokemon = concatWeight
       }
     },
     setButtonColor(type) {
