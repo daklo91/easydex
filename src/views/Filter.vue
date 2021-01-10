@@ -211,9 +211,6 @@ export default {
       return typeColor(type)
     }
   },
-  mounted() {
-    this.$store.dispatch('fetchOriginalPokemon')
-  },
   components: {
     PokemonCard
   }
