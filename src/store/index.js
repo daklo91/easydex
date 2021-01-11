@@ -46,7 +46,7 @@ export default new Vuex.Store({
         })
     },
     fetchOriginalPokemon({ commit }) {
-      for (var i = 1; i <= 151; i++) {
+      for (var i = 1; i <= 893; i++) {
         fetch('https://pokeapi.co/api/v2/pokemon/' + i)
           .then(resp => resp.json())
           .then(function(data) {
