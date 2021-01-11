@@ -66,7 +66,7 @@ export default {
   },
   props: {
     type: {
-      type: Object,
+      type: String,
       function() {
         return 'Pokemon Type Object not recieved'
       }
@@ -81,7 +81,7 @@ export default {
       return typeColors(type)
     },
     setTypeSVG(type) {
-      return type.type.name
+      return type
     }
   }
 }

@@ -23,7 +23,6 @@ export default {
     RouterLinks
   },
   beforeCreate() {
-    this.$store.dispatch('createEmptyPokemonArray')
     this.$store.dispatch('fetchOriginalPokemon')
   },
   watch: {

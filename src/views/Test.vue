@@ -1,9 +1,15 @@
 <template>
-  <div>Testing Netlify</div>
+  <div><button @click.prevent="consoleLog">Console Log</button></div>
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    consoleLog() {
+      console.log(this.$store.state.originalPokemonArray)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>

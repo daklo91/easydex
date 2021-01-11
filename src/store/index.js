@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     pokemonArray: [],
-    originalPokemonArray: [] //Det er ikke original lengre, nå er det alle 893 pokemon
+    originalPokemonArray: [],
+    typeArray: []
   },
   mutations: {
     ADD_POKEMON(state, data) {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     },
     ADD_ORIGINAL_POKEMON(state, data) {
       state.originalPokemonArray.push(data)
+    },
+    ADD_TYPE(state, data) {
+      state.typeArray.push(data)
     }
   },
   actions: {
@@ -46,7 +50,18 @@ export default new Vuex.Store({
         fetch('https://pokeapi.co/api/v2/pokemon/' + i)
           .then(resp => resp.json())
           .then(function(data) {
-            commit('ADD_ORIGINAL_POKEMON', data)
+            var object = {
+              id: data.id,
+              name: data.name,
+              types: [data.types[0].type.name],
+              weight: data.weight,
+              height: data.height,
+              sprite: data.sprites.front_default
+            }
+            if (data.types.length > 1) {
+              object.types.push(data.types[1].type.name)
+            }
+            commit('ADD_ORIGINAL_POKEMON', object)
           })
           .catch(function(error) {
             console.log(
@@ -57,11 +72,21 @@ export default new Vuex.Store({
             )
           })
       }
+    },
+    fetchType({ commit }) {
+      fetch('https://pokeapi.co/api/v2/pokemon-shape/ball')
+        .then(resp => resp.json())
+        .then(function(data) {
+          commit('ADD_TYPE', data)
+        })
+        .catch(function(error) {
+          console.log(error)
+        })
     }
   },
   getters: {
     gen1Array: state => {
-      return state.pokemonArray.slice(0, 151)
+      return state.originalPokemonArray.slice(0, 151)
     },
     gen2Array: state => {
       return state.pokemonArray.slice(151, 251)

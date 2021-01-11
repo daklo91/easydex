@@ -29,11 +29,11 @@
             </div>
             <img
               id="image"
-              :src="pokemon.sprites.front_default"
+              :src="pokemon.sprite"
               :alt="'Image of ' + pokemon.name"
               :title="'Image of ' + pokemon.name"
             />
-            <p>{{ pokemon.species.name }}</p>
+            <p>{{ pokemon.name }}</p>
           </div>
         </div>
         <div

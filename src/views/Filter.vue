@@ -131,7 +131,7 @@ export default {
       //Filter by Type
       if (this.filterTypes.length > 0) {
         this.filteredPokemon = pokemons.filter(pokemon =>
-          pokemon.types.some(type => this.filterTypes.includes(type.type.name))
+          pokemon.types.some(types => this.filterTypes.includes(types))
         )
       } else {
         this.filteredPokemon = pokemons
