@@ -1,9 +1,16 @@
 <template>
   <div>
     <div id="gen-buttons">
-      <router-link to="/browse/gen1">Gen I</router-link>
-      <router-link to="/browse/gen2">Gen II</router-link>
-      <router-link to="/browse/gen3">Gen III</router-link>
+      <ul>
+        <li><router-link to="/browse/gen1">Gen I</router-link></li>
+        <li><router-link to="/browse/gen2">Gen II</router-link></li>
+        <li><router-link to="/browse/gen3">Gen III</router-link></li>
+        <li><router-link to="/browse/gen4">Gen IV</router-link></li>
+        <li><router-link to="/browse/gen5">Gen V</router-link></li>
+        <li><router-link to="/browse/gen6">Gen VI</router-link></li>
+        <li><router-link to="/browse/gen7">Gen VII</router-link></li>
+        <li><router-link to="/browse/gen8">Gen VIII</router-link></li>
+      </ul>
     </div>
     <div id="spacer"></div>
     <router-view :key="$route.path"></router-view>

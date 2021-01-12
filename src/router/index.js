@@ -50,6 +50,31 @@ const routes = [
         path: 'gen3',
         name: 'Generation III',
         component: Generation
+      },
+      {
+        path: 'gen4',
+        name: 'Generation IV',
+        component: Generation
+      },
+      {
+        path: 'gen5',
+        name: 'Generation V',
+        component: Generation
+      },
+      {
+        path: 'gen6',
+        name: 'Generation VI',
+        component: Generation
+      },
+      {
+        path: 'gen7',
+        name: 'Generation VII',
+        component: Generation
+      },
+      {
+        path: 'gen8',
+        name: 'Generation VII',
+        component: Generation
       }
     ]
   },
