@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <p class="pokemon-loader">
-      loading pokemon: {{ this.$store.state.originalPokemonArray.length }}
+      loading pokemon: {{ this.$store.state.pokemonArray.length }}
     </p>
     <div id="nav-menu">
       <Menu />
@@ -23,7 +23,7 @@ export default {
     RouterLinks
   },
   beforeCreate() {
-    this.$store.dispatch('fetchOriginalPokemon')
+    this.$store.dispatch('fetchPokemon')
   },
   watch: {
     $route: {

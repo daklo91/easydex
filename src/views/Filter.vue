@@ -126,7 +126,7 @@ export default {
     },
     filterPokemon() {
       this.filteredPokemon = []
-      var pokemons = this.$store.state.originalPokemonArray
+      var pokemons = this.$store.state.pokemonArray
 
       //Filter by Type
       if (this.filterTypes.length > 0) {
