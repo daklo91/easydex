@@ -34,8 +34,8 @@
           type="text"
           v-model.number="inputSearch"
         />
-        <div class="svg-buttons">
-          <SearchIcon @click.prevent="searchByID" />
+        <div class="svg-buttons" @click.prevent="searchByInput">
+          <SearchIcon />
         </div>
       </div>
     </div>
