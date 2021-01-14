@@ -73,7 +73,7 @@ const routes = [
       },
       {
         path: 'gen8',
-        name: 'Generation VII',
+        name: 'Generation VIII',
         component: Generation
       }
     ]
