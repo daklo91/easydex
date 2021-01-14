@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div v-for="pokemon in pokemonArray" :key="pokemon.name">
+    <div
+      v-for="pokemon in pokemonArray"
+      :key="pokemon.name"
+      @click="setIDtoModal(pokemon.id)"
+    >
       <transition name="flip">
         <div :key="10001" v-if="Object.keys(pokemon).length > 2">
           <div
@@ -87,6 +91,10 @@ export default {
       if (isVisible) {
         this.$store.dispatch('updatePokemonArrayByID', pokemon.name)
       }
+    },
+    setIDtoModal(id) {
+      this.$store.state.idForModal = id
+      this.$store.dispatch('fetchModalData', id)
     }
   }
 }
