@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Modal />
     <p class="pokemon-loader">
       loading pokemon: {{ this.$store.state.pokemonArray.length }}
     </p>
@@ -16,11 +17,13 @@
 <script>
 import Menu from '@/components/Menu.vue'
 import RouterLinks from '@/components/RouterLinks.vue'
+import Modal from '@/components/Modal.vue'
 
 export default {
   components: {
     Menu,
-    RouterLinks
+    RouterLinks,
+    Modal
   },
   beforeCreate() {
     this.$store.dispatch('fetchPokemon')
