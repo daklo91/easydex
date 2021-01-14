@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    pokemonArray: []
+    pokemonArray: [],
+    idForModal: ''
   },
   mutations: {
     ADD_POKEMON(state, data) {
@@ -13,6 +14,13 @@ export default new Vuex.Store({
       if (state.pokemonArray.length == 898) {
         state.pokemonArray.sort((a, b) => (a.id > b.id ? 1 : -1))
       }
+    },
+    ADD_ADDITIONAL_DATA(state, object) {
+      Vue.set(
+        state.pokemonArray[object.tempId - 1],
+        'lore',
+        object.lore.flavor_text
+      )
     }
   },
   actions: {
@@ -27,7 +35,20 @@ export default new Vuex.Store({
               types: [data.types[0].type.name],
               weight: data.weight,
               height: data.height,
-              sprite: data.sprites.front_default
+              sprite: data.sprites.front_default,
+              stats: {
+                hp: data.stats.find(x => x.stat.name == 'hp').base_stat,
+                attack: data.stats.find(x => x.stat.name == 'attack').base_stat,
+                defense: data.stats.find(x => x.stat.name == 'defense')
+                  .base_stat,
+                specialAttack: data.stats.find(
+                  x => x.stat.name == 'special-attack'
+                ).base_stat,
+                specialDefense: data.stats.find(
+                  x => x.stat.name == 'special-defense'
+                ).base_stat,
+                speed: data.stats.find(x => x.stat.name == 'speed').base_stat
+              }
             }
             if (data.types.length > 1) {
               object.types.push(data.types[1].type.name)
@@ -38,6 +59,24 @@ export default new Vuex.Store({
             console.log('Error at fetchPokemon action. ID: ' + i + ' ' + error)
           })
       }
+    },
+    fetchModalData({ commit }, pokemonId) {
+      fetch('https://pokeapi.co/api/v2/pokemon-species/' + pokemonId)
+        .then(resp => resp.json())
+        .then(function(data) {
+          var object = {
+            tempId: pokemonId,
+            lore: data.flavor_text_entries
+              .reverse()
+              .find(x => x.language.name == 'en')
+          }
+          commit('ADD_ADDITIONAL_DATA', object)
+        })
+        .catch(function(error) {
+          console.log(
+            'Error at fetchModalData action. ID: ' + pokemonId + ' ' + error
+          )
+        })
     }
   },
   getters: {
