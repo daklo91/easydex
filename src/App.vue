@@ -1,9 +1,7 @@
 <template>
   <div id="app">
+    <LoadingScreen />
     <Modal />
-    <p class="pokemon-loader">
-      loading pokemon: {{ this.$store.state.pokemonArray.length }}
-    </p>
     <div id="nav-menu">
       <Menu />
     </div>
@@ -18,12 +16,14 @@
 import Menu from '@/components/Menu.vue'
 import RouterLinks from '@/components/RouterLinks.vue'
 import Modal from '@/components/Modal.vue'
+import LoadingScreen from '@/components/LoadingScreen.vue'
 
 export default {
   components: {
     Menu,
     RouterLinks,
-    Modal
+    Modal,
+    LoadingScreen
   },
   beforeCreate() {
     this.$store.dispatch('fetchPokemon')
@@ -40,11 +40,6 @@ export default {
 </script>
 
 <style lang="scss">
-.pokemon-loader {
-  margin: 0;
-  padding-top: 20px;
-}
-
 body {
   margin: 0;
   padding: 0;

@@ -6,10 +6,17 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     pokemonArray: [],
-    idForModal: ''
+    idForModal: '',
+    loadingNumber: 1,
+    count: 0
   },
   mutations: {
     ADD_POKEMON(state, data) {
+      state.count++
+      if (state.count === 9) {
+        state.count = 0
+        state.loadingNumber++
+      }
       state.pokemonArray.push(data)
       if (state.pokemonArray.length == 898) {
         state.pokemonArray.sort((a, b) => (a.id > b.id ? 1 : -1))
