@@ -42,8 +42,10 @@ export default {
 .modal-frame {
   background: beige;
   height: 100vh;
-  width: 41.67vw;
+  width: 100vw;
   position: fixed;
   z-index: 9999;
+  top: 0;
+  left: 0;
 }
 </style>

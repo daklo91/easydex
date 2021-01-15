@@ -37,6 +37,8 @@ export default {
   background-color: rgba(255, 255, 255, 0.9);
   z-index: 99;
   position: fixed;
+  top: 0;
+  left: 0;
 
   h2 {
     font: 300% $title-font;
