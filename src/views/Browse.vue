@@ -1,40 +1,56 @@
 <template>
   <div>
-    <div id="gen-buttons">
-      <ul>
-        <li><router-link to="/browse/gen1">Gen I</router-link></li>
-        <li><router-link to="/browse/gen2">Gen II</router-link></li>
-        <li><router-link to="/browse/gen3">Gen III</router-link></li>
-        <li><router-link to="/browse/gen4">Gen IV</router-link></li>
-        <li><router-link to="/browse/gen5">Gen V</router-link></li>
-        <li><router-link to="/browse/gen6">Gen VI</router-link></li>
-        <li><router-link to="/browse/gen7">Gen VII</router-link></li>
-        <li><router-link to="/browse/gen8">Gen VIII</router-link></li>
-      </ul>
-    </div>
     <div id="spacer"></div>
+    <ViewList class="view-list" />
+    <GenerationButtons class="gen-buttons" />
+    <!-- <div id="gen-buttons">
+      <router-link to="/browse/gen1">I</router-link>
+      <router-link to="/browse/gen2">II</router-link>
+      <router-link to="/browse/gen3">III</router-link>
+      <router-link to="/browse/gen4">IV</router-link>
+      <router-link to="/browse/gen5">V</router-link>
+      <router-link to="/browse/gen6">VI</router-link>
+      <router-link to="/browse/gen7">VII</router-link>
+      <router-link to="/browse/gen8">VIII</router-link>
+    </div> -->
     <router-view :key="$route.path"></router-view>
   </div>
 </template>
 
 <script>
-export default {}
+import GenerationButtons from '@/components/GenerationButtons.vue'
+import ViewList from '@/assets/ViewList.vue'
+export default {
+  components: {
+    GenerationButtons,
+    ViewList
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-#flex-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+// #flex-container {
+//   display: flex;
+//   flex-wrap: wrap;
+//   justify-content: center;
+// }
+
+.gen-buttons {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  @media (max-width: 676px) {
+    display: none;
+  }
+}
+
+.view-list {
+  @media (min-width: 677px) {
+    display: none;
+  }
 }
 
 #spacer {
   padding-top: 120px;
-}
-
-#gen-buttons {
-  position: fixed;
-  left: 10%;
-  background-color: lightgreen;
 }
 </style>

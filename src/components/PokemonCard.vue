@@ -37,7 +37,7 @@
               :alt="'Image of ' + pokemon.name"
               :title="'Image of ' + pokemon.name"
             />
-            <p>{{ pokemon.name }}</p>
+            <p class="name">{{ pokemon.name }}</p>
           </div>
         </div>
         <div
@@ -162,6 +162,41 @@ export default {
   text-transform: capitalize;
   box-sizing: border-box;
   transition: all 0.06s;
+
+  @media (max-width: 440px) {
+    width: 180px;
+    height: 200px;
+    .name {
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 400px) {
+    width: 160px;
+    height: 200px;
+    .name {
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    width: 140px;
+    .name {
+      margin: 0;
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 319px) {
+    width: 200px;
+    height: 220px;
+    .name {
+      font-size: 16px;
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+  }
 
   &:hover {
     cursor: pointer;

@@ -58,7 +58,7 @@ body {
   font-family: $main-font;
   color: $main-color;
   text-align: center;
-  max-width: 800px;
+  max-width: 1000px;
   min-height: 100vh;
   margin: auto;
   background: white;
@@ -76,7 +76,7 @@ body {
   }
 }
 
-@media only screen and (max-width: 550px) {
+@media only screen and (max-width: 676px) {
   #nav-bar {
     display: none;
   }

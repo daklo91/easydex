@@ -17,7 +17,7 @@
     margin: 0px 1px 0px;
     text-decoration: none;
     color: $main-color;
-    transition: 0.3s;
+    // transition: 0.3s;
 
     &.router-link-exact-active {
       color: $pokemon-yellow-color;
