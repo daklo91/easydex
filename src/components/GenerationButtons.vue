@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="gen-title"><h2>Generations</h2></div>
-    <div id="gen-buttons">
+    <div id="gen-buttons" @click="closeList">
       <router-link to="/browse/gen1">I</router-link>
       <router-link to="/browse/gen2">II</router-link>
       <router-link to="/browse/gen3">III</router-link>
@@ -15,7 +15,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    closeList() {
+      this.$store.state.genListWindow = false
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

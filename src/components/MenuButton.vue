@@ -1,5 +1,5 @@
 <template>
-  <div id="button-container" @click="openMenu">
+  <div id="button-container">
     <div id="top-line"></div>
     <div id="mid-line"></div>
     <div id="bot-line"></div>
@@ -7,13 +7,7 @@
 </template>
 
 <script>
-export default {
-  methods: {
-    openMenu() {
-      this.$emit('openMenu')
-    }
-  }
-}
+export default {}
 </script>
 
 <style lang="scss" scoped>

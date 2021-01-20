@@ -1,9 +1,9 @@
 <template>
   <div>
-    <MenuButton v-on:openMenu="openMenu" />
+    <div @click="openMenu"><MenuButton /></div>
     <div id="menu" v-if="menuIsOpen">
       <h2>Easydex</h2>
-      <RouterLinks />
+      <div @click="closeMenu"><RouterLinks /></div>
     </div>
   </div>
 </template>
@@ -17,14 +17,17 @@ export default {
     MenuButton,
     RouterLinks
   },
-  data() {
-    return {
-      menuIsOpen: false
+  computed: {
+    menuIsOpen() {
+      return this.$store.state.menuIsOpen
     }
   },
   methods: {
     openMenu() {
-      this.menuIsOpen = !this.menuIsOpen
+      this.$store.state.menuIsOpen = !this.$store.state.menuIsOpen
+    },
+    closeMenu() {
+      this.$store.state.menuIsOpen = false
     }
   }
 }

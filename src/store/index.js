@@ -8,7 +8,9 @@ export default new Vuex.Store({
     pokemonArray: [],
     idForModal: '',
     loadingNumber: 1,
-    count: 0
+    count: 0,
+    genListWindow: false,
+    menuIsOpen: false
   },
   mutations: {
     ADD_POKEMON(state, data) {

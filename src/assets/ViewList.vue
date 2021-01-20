@@ -5,7 +5,7 @@
       height="50"
       viewBox="0 0 24 24"
       width="50"
-      @click="genList = !genList"
+      @click="toggleList"
       class="listButton"
     >
       <path d="M0 0h24v24H0z" fill="none" />
@@ -26,9 +26,14 @@ export default {
   components: {
     GenerationButtons
   },
-  data() {
-    return {
-      genList: false
+  computed: {
+    genList() {
+      return this.$store.state.genListWindow
+    }
+  },
+  methods: {
+    toggleList() {
+      this.$store.state.genListWindow = !this.$store.state.genListWindow
     }
   }
 }
