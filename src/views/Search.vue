@@ -33,8 +33,8 @@
           ref="refInput"
           @keyup.enter="searchByInput"
           type="text"
-          :value="inputSearch"
-          @input="e => (inputSearch = e.target.value)"
+          v-model.number="inputSearch"
+          @input="$event.target.composing = false"
         />
         <div class="svg-buttons" @click.prevent="searchByButton">
           <SearchIcon />
@@ -116,7 +116,7 @@ export default {
     },
     searchByInput() {
       var input = this.inputSearch
-      if (typeof input === 'number' && this.currentItem === 0) {
+      if (typeof input === 'number') {
         this.confirmedInputSearch = input
       } else if (typeof input === 'string' && this.currentItem === 0) {
         input = input.toLowerCase()
@@ -128,6 +128,7 @@ export default {
         }
       }
       this.inputSearch = ''
+      this.currentItem = 0
     },
     searchByButton() {
       var input = this.inputSearch
