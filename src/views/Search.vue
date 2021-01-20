@@ -121,13 +121,15 @@ export default {
       var input = this.inputSearch
       if (typeof input === 'number') {
         this.confirmedInputSearch = input
+        event.target.blur()
       } else if (typeof input === 'string' && this.currentItem === 0) {
         input = input.toLowerCase()
         for (var i = 0; i < this.$store.state.pokemonArray.length; i++) {
           if (this.$store.state.pokemonArray[i].name == input) {
             this.confirmedInputSearch = i + 1
+            event.target.blur()
             break
-          }
+          } else this.confirmedInputSearch = ''
         }
       }
       this.inputSearch = ''
@@ -169,7 +171,9 @@ export default {
       ) {
         this.currentItem++
       }
-      this.activeItemtext = this.$refs.refWord[this.currentItem - 1].innerText
+      if (this.currentItem > 0) {
+        this.activeItemtext = this.$refs.refWord[this.currentItem - 1].innerText
+      }
     },
     setCurrentItem() {
       this.currentItem = this.fuseArray
