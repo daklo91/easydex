@@ -14,7 +14,7 @@
       </div>
       <img
         src="../assets/PikachuByDoopliss.jpg"
-        :class="{ opacity: inputSearch }"
+        :class="{ opacity: focus || inputSearch }"
         v-if="!confirmedInputSearch"
       />
     </div>
@@ -35,6 +35,8 @@
           type="text"
           v-model.number="inputSearch"
           @input="$event.target.composing = false"
+          @focus="focus = true"
+          @blur="focus = false"
         />
         <div class="svg-buttons" @click.prevent="searchByButton">
           <SearchIcon />
@@ -79,7 +81,8 @@ export default {
       confirmedInputSearch: '',
       pokemonByID: [],
       currentItem: 0,
-      activeItemtext: ''
+      activeItemtext: '',
+      focus: false
     }
   },
   mounted() {
