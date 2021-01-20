@@ -15,12 +15,13 @@
       <img
         src="../assets/PikachuByDoopliss.jpg"
         :class="{ opacity: inputSearch }"
+        v-if="!confirmedInputSearch"
       />
     </div>
     <PokemonCard
       class="pokemoncard"
       :pokemonArray="pokemonSearchArray"
-      v-if="inputSearch"
+      v-if="!inputSearch"
     />
     <div class="input-container-outer">
       <p :class="{ opacity: inputSearch }">
@@ -34,7 +35,7 @@
           type="text"
           v-model.number="inputSearch"
         />
-        <div class="svg-buttons" @click.prevent="searchByInput">
+        <div class="svg-buttons" @click.prevent="searchByButton">
           <SearchIcon />
         </div>
       </div>
@@ -109,6 +110,7 @@ export default {
           this.confirmedInputSearch = i + 1
           break
         }
+        this.inputSearch = ''
       }
     },
     searchByInput() {
@@ -124,9 +126,26 @@ export default {
           }
         }
       }
+      this.inputSearch = ''
+    },
+    searchByButton() {
+      var input = this.inputSearch
+      if (typeof input === 'number') {
+        this.confirmedInputSearch = input
+      } else if (typeof input === 'string') {
+        input = input.toLowerCase()
+        for (var i = 0; i < this.$store.state.pokemonArray.length; i++) {
+          if (this.$store.state.pokemonArray[i].name == input) {
+            this.confirmedInputSearch = i + 1
+            break
+          }
+        }
+      }
+      this.inputSearch = ''
     },
     clearInput() {
       this.inputSearch = ''
+      this.confirmedInputSearch = ''
     },
     nextItem() {
       if (event.keyCode == 38 && this.currentItem == 0) {
@@ -200,6 +219,20 @@ li {
 img {
   width: 450px;
   z-index: 1;
+
+  @media (max-width: 520px) {
+    width: 400px;
+  }
+
+  @media (max-width: 500px) {
+    width: 350px;
+  }
+  @media (max-width: 320px) {
+    width: 250px;
+  }
+  @media (max-width: 270px) {
+    width: 200px;
+  }
 }
 
 .text {
@@ -221,6 +254,8 @@ img {
 
 input {
   margin: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
   width: 200px;
   height: 30px;
   border-radius: 8px;
