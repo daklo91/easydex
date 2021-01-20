@@ -33,7 +33,8 @@
           ref="refInput"
           @keyup.enter="searchByInput"
           type="text"
-          v-model.number="inputSearch"
+          :value="inputSearch"
+          @input="e => (inputSearch = e.target.value)"
         />
         <div class="svg-buttons" @click.prevent="searchByButton">
           <SearchIcon />
