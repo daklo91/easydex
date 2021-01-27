@@ -1,7 +1,7 @@
 <template>
   <div
     class="loading-screen-frame"
-    v-if="this.$store.state.pokemonArray.length != 898"
+    v-if="this.$store.state.pokemonArray.length > 898"
   >
     <p>Gotta fetch em all!</p>
 

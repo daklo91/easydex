@@ -1,33 +1,37 @@
 <template>
   <div class="flex-container">
     <div class="spacer"></div>
-    <div class="box">
-      <div class="text">
-        <ul v-for="(name, index) in fuseArray" :key="name.id" ref="refWord">
-          <li
-            :class="{ 'active-item': currentItem === index + 1 }"
-            @click="searchByClick(name.item.name)"
-          >
-            {{ name.item.name }}
-          </li>
-        </ul>
+    <div
+      class="search-display"
+      :id="confirmedInputSearch ? 'transparent-background' : false"
+    >
+      <div
+        class="opaque-div"
+        :id="inputSearch ? false : 'transparent-background'"
+      >
+        <PokemonCard
+          class="pokemoncard"
+          :pokemonArray="pokemonSearchArray"
+          v-if="!inputSearch"
+        />
+        <div class="suggestions">
+          <ul v-for="(name, index) in fuseArray" :key="name.id" ref="refWord">
+            <li
+              class="item"
+              :class="{ 'active-item': currentItem === index + 1 }"
+              @click="searchByClick(name.item.name)"
+            >
+              {{ name.item.name }}
+            </li>
+          </ul>
+        </div>
       </div>
-      <img
-        src="../assets/PikachuByDoopliss.jpg"
-        :class="{ opacity: focus || inputSearch }"
-        v-if="!confirmedInputSearch"
-      />
     </div>
-    <PokemonCard
-      class="pokemoncard"
-      :pokemonArray="pokemonSearchArray"
-      v-if="!inputSearch"
-    />
-    <div class="input-container-outer">
+    <div class="input-container">
       <p :class="{ opacity: inputSearch }">
         Index or Name
       </p>
-      <div id="input-container">
+      <div class="inner-input-container">
         <div class="svg-buttons" @click.prevent="clearInput"><ClearIcon /></div>
         <input
           ref="refInput"
@@ -115,6 +119,7 @@ export default {
           break
         }
         this.inputSearch = ''
+        this.currentItem = 0
       }
     },
     searchByInput() {
@@ -183,33 +188,86 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.input-container-outer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 60%;
-}
-
-.active-item {
-  color: $pokemon-yellow-color;
-  background-color: $pokemon-blue-color;
-  padding: 5px;
-  border-radius: 8px;
-}
-
-.svg-buttons:hover {
-  cursor: pointer;
-}
-
-#input-container {
-  display: flex;
-}
-
 .flex-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .search-display {
+    background: url('../assets/PikachuByDoopliss.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    width: 300px;
+
+    @media (max-width: 300px) {
+      height: 250px;
+      width: 250px;
+    }
+
+    .opaque-div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.479);
+
+      @media (max-height: 500px) and (orientation: landscape) {
+        .suggestions {
+          display: flex;
+          flex-wrap: wrap;
+        }
+      }
+
+      .item:hover {
+        color: rgb(255, 190, 70);
+        cursor: pointer;
+      }
+
+      .active-item {
+        color: $pokemon-yellow-color;
+        background-color: $pokemon-blue-color;
+        padding: 5px;
+        border-radius: 8px;
+      }
+    }
+  }
+
+  .input-container {
+    display: flex;
+    flex-direction: column;
+
+    .inner-input-container {
+      display: flex;
+
+      input {
+        margin: 0px;
+        margin-left: 5px;
+        margin-right: 5px;
+        width: 200px;
+        height: 30px;
+        border-radius: 8px;
+
+        @media (max-width: 280px) {
+          width: 150px;
+        }
+      }
+
+      .svg-buttons:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+#transparent-background {
+  background: transparent;
+
+  @media (max-height: 500px) and (orientation: landscape) {
+    background: rgba(255, 255, 255, 0.479);
+  }
 }
 
 ul {
@@ -221,52 +279,15 @@ li {
   list-style-type: none;
 }
 
-.spacer {
-  padding: 50px;
-}
-
-img {
-  width: 450px;
-  z-index: 1;
-
-  @media (max-width: 520px) {
-    width: 400px;
-  }
-
-  @media (max-width: 500px) {
-    width: 350px;
-  }
-  @media (max-width: 320px) {
-    width: 250px;
-  }
-  @media (max-width: 270px) {
-    width: 200px;
-  }
-}
-
-.text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-}
-.pokemoncard {
-  position: absolute;
-  top: 14%;
-  z-index: 11;
-}
-
 .opacity {
   opacity: 0.2;
 }
 
-input {
-  margin: 0px;
-  margin-left: 5px;
-  margin-right: 5px;
-  width: 200px;
-  height: 30px;
-  border-radius: 8px;
+.spacer {
+  padding: 50px;
+
+  @media (max-height: 500px) and (orientation: landscape) {
+    padding: 0;
+  }
 }
 </style>

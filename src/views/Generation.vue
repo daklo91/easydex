@@ -15,7 +15,7 @@ export default {
       return this.$route.path.slice(-4)
     },
     activeGenArray() {
-      if (this.$store.state.pokemonArray.length == 898) {
+      if (this.$store.state.pokemonArray.length < 898) {
         return this.$store.getters[this.activeGen + 'Array']
       }
       return []
