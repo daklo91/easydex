@@ -1,10 +1,14 @@
 <template>
   <div id="app">
-    <LoadingScreen />
+    <p class="pokemon-array-length">
+      {{ this.$store.state.pokemonArray.length }}
+    </p>
+    <!-- <LoadingScreen /> -->
     <Modal />
     <div id="nav-menu">
       <Menu />
     </div>
+    <h1 class="easydex-logo">Easydex</h1>
     <div id="nav-bar">
       <RouterLinks />
     </div>
@@ -16,14 +20,14 @@
 import Menu from '@/components/Menu.vue'
 import RouterLinks from '@/components/RouterLinks.vue'
 import Modal from '@/components/Modal.vue'
-import LoadingScreen from '@/components/LoadingScreen.vue'
+// import LoadingScreen from '@/components/LoadingScreen.vue'
 
 export default {
   components: {
     Menu,
     RouterLinks,
-    Modal,
-    LoadingScreen
+    Modal
+    // LoadingScreen
   },
   beforeCreate() {
     this.$store.dispatch('fetchPokemon')
@@ -43,7 +47,6 @@ export default {
 body {
   margin: 0;
   padding: 0;
-  overflow: auto;
   background: repeating-linear-gradient(
     45deg,
     #fff,
@@ -52,31 +55,48 @@ body {
     #e6f9ff 60px
   );
   background-attachment: fixed;
+  overflow-y: scroll;
 }
 
 #app {
   font-family: $main-font;
   color: $main-color;
   text-align: center;
-  max-width: 1000px;
+  width: 1000px;
   min-height: 100vh;
   margin: auto;
   background: white;
   box-shadow: 0px 0px 16px 0px rgba(100, 100, 100, 0.5);
+  @media screen and (max-width: 1100px) {
+    width: 100%;
+  }
 
+  .pokemon-array-length {
+    margin: 0;
+    padding: 0;
+  }
+
+  .easydex-logo {
+    font: 450% $title-font;
+    color: $pokemon-yellow-color;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: $pokemon-blue-color;
+    margin: 0;
+    padding-top: 25px;
+  }
   #nav-menu {
     display: none;
   }
   #nav-bar {
-    position: absolute;
-    margin-top: 60px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    //Hack to make absolute position stay centered
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.95);
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 }
 
-@media only screen and (max-width: 676px) {
+@media screen and (max-width: 480px) {
   #nav-bar {
     display: none;
   }
