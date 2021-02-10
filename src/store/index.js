@@ -8,19 +8,19 @@ export default new Vuex.Store({
     pokemonArray: [],
     idForModal: '',
     loadingNumber: 1,
-    count: 0,
+    // count: 0,
     genListWindow: false,
     menuIsOpen: false
   },
   mutations: {
     ADD_POKEMON(state, data) {
-      state.count++
-      if (state.count === 9) {
-        state.count = 0
-        state.loadingNumber++
-      }
+      // state.count++
+      // if (state.count === 9) {
+      //   state.count = 0
+      //   state.loadingNumber++
+      // }
       state.pokemonArray.push(data)
-      if (state.pokemonArray.length == 898) {
+      if (state.pokemonArray.length <= 850) {
         state.pokemonArray.sort((a, b) => (a.id > b.id ? 1 : -1))
       }
     },
@@ -59,13 +59,15 @@ export default new Vuex.Store({
                 speed: data.stats.find(x => x.stat.name == 'speed').base_stat
               }
             }
+
             if (data.types.length > 1) {
               object.types.push(data.types[1].type.name)
             }
+
             commit('ADD_POKEMON', object)
           })
           .catch(function(error) {
-            console.log('Error at fetchPokemon action. ID: ' + i + ' ' + error)
+            console.log(error)
           })
       }
     },
