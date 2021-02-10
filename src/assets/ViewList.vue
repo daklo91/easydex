@@ -15,7 +15,7 @@
       />
     </svg>
     <div v-if="genList" class="list">
-      <GenerationButtons class="gen-buttons" />
+      <GenerationButtons />
     </div>
   </div>
 </template>
@@ -41,8 +41,8 @@ export default {
 
 <style lang="scss" scoped>
 .list {
-  height: 100vh;
-  width: 100vw;
+  // height: 100vh;
+  // width: 100vw;
   background-color: rgba(255, 255, 255, 0.9);
   z-index: 80;
   position: fixed;
@@ -50,10 +50,10 @@ export default {
   left: 0;
 }
 
-#gen-buttons {
-  display: flex;
-  flex-direction: column;
-}
+// #gen-buttons {
+//   display: flex;
+//   flex-direction: column;
+// }
 
 .listButton {
   z-index: 81;

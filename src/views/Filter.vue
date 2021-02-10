@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="spacer"></div>
     <div class="type-buttons">
       <div
         class="type-button"
@@ -218,10 +217,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.spacer {
-  padding: 50px;
+.weight-button {
+  cursor: pointer;
 }
-
+.height-button {
+  cursor: pointer;
+}
 .type-buttons {
   display: flex;
   width: 500px;

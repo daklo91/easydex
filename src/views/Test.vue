@@ -6,7 +6,7 @@
 export default {
   methods: {
     consoleLog() {
-      console.log(this.$store.state.originalPokemonArray)
+      console.log(this.$store.state.pokemonArray)
     }
   }
 }

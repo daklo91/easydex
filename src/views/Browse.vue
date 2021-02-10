@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div id="spacer"></div>
     <ViewList class="view-list" />
     <GenerationButtons class="gen-buttons" />
     <!-- <div id="gen-buttons">
@@ -38,19 +37,15 @@ export default {
 .gen-buttons {
   position: -webkit-sticky;
   position: sticky;
-  top: 0;
-  @media (max-width: 676px) {
+  top: 76px;
+  @media (max-width: 480px) {
     display: none;
   }
 }
 
 .view-list {
-  @media (min-width: 677px) {
+  @media (min-width: 481px) {
     display: none;
   }
-}
-
-#spacer {
-  padding-top: 120px;
 }
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-    <div id="spacer"></div>
     <p>
       api from PokeApi:
     </p>
@@ -28,8 +27,4 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
-#spacer {
-  padding: 100px;
-}
-</style>
+<style lang="scss" scoped></style>

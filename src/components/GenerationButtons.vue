@@ -26,45 +26,42 @@ export default {
 
 <style lang="scss" scoped>
 .gen-title {
-  margin-top: 20%;
-  @media (min-width: 676px) {
+  margin: 0;
+  @media (min-width: 481px) {
     display: none;
   }
 }
 
 #gen-buttons {
   background-color: rgba(255, 255, 255, 0.95);
-  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: auto;
+  font-size: 10px;
 
-  @media (max-width: 676px) {
-    margin-top: 30%;
+  @media (max-width: 480px) {
+    font-size: 16px;
+    margin: 0;
     flex-direction: column;
+    flex-wrap: wrap;
+    height: 100vh;
+    width: 100vw;
   }
 
-  @media (max-width: 440px) {
-    margin-top: 40%;
-    flex-direction: column;
-  }
-
-  @media (max-width: 350px) {
-    margin-top: 50%;
-    flex-direction: column;
-  }
-
-  @media (max-width: 260px) {
-    margin-top: 60%;
-    flex-direction: column;
+  @media (max-height: 450px) and (max-width: 480px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: center;
+    align-content: center;
   }
 
   a {
     text-decoration: none;
     color: $main-color;
     margin: 5px;
-    padding: 5px;
+    padding: 0px;
     width: 80px;
     height: 30px;
     display: flex;
@@ -74,8 +71,11 @@ export default {
     border-radius: 12px;
     border: 2px solid $main-color;
 
+    @media (max-width: 480px) {
+      padding: 4px;
+    }
+
     &.router-link-exact-active {
-      // color: $pokemon-yellow-color;
       background-color: lighten($action-button-background, 10%);
       color: $pokemon-yellow-color;
       border: 3px solid $main-color;
