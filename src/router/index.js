@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Browse from '../views/Browse.vue'
 import Search from '../views/Search.vue'
@@ -11,14 +10,6 @@ import Generation from '../views/Generation.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home,
-    meta: {
-      title: 'Easydex'
-    }
-  },
   {
     path: '/about',
     name: 'About',
