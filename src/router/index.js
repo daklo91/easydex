@@ -11,6 +11,11 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    name: 'Easydex',
+    redirect: '/browse/gen1'
+  },
+  {
     path: '/about',
     name: 'About',
     component: About,
