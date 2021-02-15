@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <p class="pokemon-array-length">
-      {{ this.$store.state.pokemonArray.length }}
+      Loading Pokémon: {{ this.$store.state.pokemonArray.length }}
     </p>
     <!-- <LoadingScreen /> -->
     <Modal />
@@ -29,9 +29,9 @@ export default {
     Modal
     // LoadingScreen
   },
-  beforeCreate() {
-    this.$store.dispatch('fetchPokemon')
-  },
+  // beforeCreate() {
+  //   this.$store.dispatch('fetchPokemon')
+  // },
   watch: {
     $route: {
       handler: to => {
